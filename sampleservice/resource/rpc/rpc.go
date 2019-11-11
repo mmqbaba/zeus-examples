@@ -6,9 +6,8 @@ import (
 
 	"github.com/micro/go-micro/client"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/microsrv/gomicro"
+	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-	"zeus-examples/sampleservice/global"
 	hello "zeus-examples/sampleservice/proto/gomicro"
 )
 
@@ -33,11 +32,11 @@ func GetHelloService(ctx context.Context) (hello.HelloService, error) {
 
 	helloSrv.mux.Lock()
 	defer helloSrv.mux.Unlock()
-	cli, err := gomicro.NewClient(ctx, global.GetConfig().GoMicro)
+	cli, err := zeusctx.ExtractGMClient(ctx)
 	if err != nil {
 		return nil, err
 	}
 	helloSrv.name = "zeus"
-	helloSrv.client = hello.NewHelloService("zeus", cli)
+	helloSrv.client = hello.NewHelloService(helloSrv.name, cli)
 	return helloSrv.client, nil
 }

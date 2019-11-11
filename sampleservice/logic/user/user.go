@@ -2,10 +2,11 @@ package user
 
 import (
 	"context"
-	"log"
 
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/registry"
+
+	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
 	hello "zeus-examples/sampleservice/proto/gomicro"
 	"zeus-examples/sampleservice/resource/cache"
@@ -19,21 +20,21 @@ func GetInfo(ctx context.Context, id string) (info string, err error) {
 	}
 	cli, err := rpc.GetHelloService(ctx)
 	if err != nil {
-		log.Println("rpc.GetHelloService err:", err)
+		zeusctx.ExtractLogger(ctx).Error("rpc.GetHelloService err:", err)
 		return
 	}
 	rsp, err := cli.PingPong(ctx, &hello.PingRequest{Ping: "ping"}, client.WithCallWrapper(func(c client.CallFunc) client.CallFunc {
 		return func(ctx context.Context, node *registry.Node, req client.Request, rsp interface{}, opts client.CallOptions) error {
-			log.Println("wrapcall PingPong begin")
+			zeusctx.ExtractLogger(ctx).Debug("wrapcall PingPong begin")
 			err := c(ctx, node, req, rsp, opts)
-			log.Println("wrapcall PingPong end")
+			zeusctx.ExtractLogger(ctx).Debug("wrapcall PingPong end")
 			return err
 		}
 	}))
 	if err != nil {
-		log.Println("cli.PingPong err:", err)
+		zeusctx.ExtractLogger(ctx).Error("cli.PingPong err:", err)
 		return
 	}
-	log.Println("cli.PingPong success. rsp.Pong:", rsp.Pong)
+	zeusctx.ExtractLogger(ctx).Debug("cli.PingPong success. rsp.Pong:", rsp.Pong)
 	return
 }

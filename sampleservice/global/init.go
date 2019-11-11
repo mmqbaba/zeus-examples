@@ -15,23 +15,16 @@ var ServiceOpts []service.Option
 
 func init() {
 	// load engine
-	loadEngineFnOpt := service.WithLoadEngineFnOption(func(ng engine.Engine) {
+	loadEngineFnOpt := service.WithLoadEngineFnOption(func(n engine.Engine) {
 		log.Println("WithLoadEngineFnOption: SetNG success.")
-		SetNG(ng)
+		ng = n
 	})
 	ServiceOpts = append(ServiceOpts, loadEngineFnOpt)
-	// // server wrap
-	// ServiceOpts = append(ServiceOpts, service.WithGoMicroServerWrapGenerateFnOption(gomicro.GenerateServerLogWrap))
 }
 
 // GetNG ...
 func GetNG() engine.Engine {
 	return ng
-}
-
-// SetNG ...
-func SetNG(n engine.Engine) {
-	ng = n
 }
 
 // GetConfig ...
