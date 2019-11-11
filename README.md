@@ -59,7 +59,6 @@ protoc -I. \
 - gen-validator
 ```bash
 cd /yourpath/to/yourproject/proto
-
 mkdir gomicro
 protoc  \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
@@ -68,7 +67,6 @@ protoc  \
   --proto_path=. \
   --govalidators_out=./gomicro \
   ./hello.proto
-
 mkdir gw
 protoc  \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \

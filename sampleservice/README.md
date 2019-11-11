@@ -10,3 +10,13 @@
 	"password": "123456"
 }
 ```
+
+## gen-proto
+```bash
+./build-proto.sh
+```
+
+## run
+```bash
+go run ./cmd
+```
