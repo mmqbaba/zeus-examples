@@ -26,7 +26,7 @@ func main() {
 	curr := runtime.GOMAXPROCS(num)
 	log.Printf("[CURRENT GOMAXPROCS] %v\n", curr)
 	log.Println("service run ...")
-	if err := service.Run(container.GetContainer(), global.ServiceOpts...); err != nil {
+	if err := service.Run(container.GetContainer(), nil, global.ServiceOpts...); err != nil {
 		log.Printf("Service exited with error: %s\n", err)
 		os.Exit(255)
 	} else {
