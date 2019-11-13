@@ -36,5 +36,5 @@
 
 ## run
 ```bash
-go run ./cmd
+go run ./cmd/app
 ```
