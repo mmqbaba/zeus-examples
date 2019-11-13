@@ -1,7 +1,10 @@
 #!/bin/bash
 
-projectpath=/e/works/projects/zeus-examples/sampleservice # 具体的项目路径
+projectpath=. # 具体的项目路径
 service=hello # 服务名
+
+protoc-gen-zeus --proto ./proto/$service.proto
+
 cd $projectpath/proto
 
 # gen-gomicro gen-validator

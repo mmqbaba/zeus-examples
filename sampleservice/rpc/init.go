@@ -20,7 +20,7 @@ func init() {
 }
 
 func gmHelloHandlerRegister(s server.Server, opts ...server.HandlerOption) (err error) {
-	if err = hello.RegisterHelloHandler(s, &handler.HelloHDL{}, opts...); err != nil {
+	if err = hello.RegisterHelloHandler(s, &handler.Hello{}, opts...); err != nil {
 		log.Println("hello.RegisterHelloHandler err:", err)
 		return
 	}

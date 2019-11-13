@@ -8,14 +8,11 @@ import (
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
-
-	"zeus-examples/sampleservice/global"
 )
 
 func init() {
 	// gomicro
-	global.ServiceOpts = append(global.ServiceOpts, service.WithGoMicroServerWrapGenerateFnOption(customerServerWrap))
+	// global.ServiceOpts = append(global.ServiceOpts, service.WithGoMicroServerWrapGenerateFnOption(customerServerWrap))
 }
 
 func customerServerWrap(ng engine.Engine) func(fn server.HandlerFunc) server.HandlerFunc {
