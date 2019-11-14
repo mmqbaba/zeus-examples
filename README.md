@@ -2,7 +2,7 @@
 
 zeus-examples
 
-- install protoc-gen-* plugin
+###  install protoc-gen-* plugin
 ```bash
 go get github.com/golang/protobuf/protoc-gen-go
 go get github.com/micro/protoc-gen-micro
@@ -12,4 +12,6 @@ go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators
 go get github.com/favadi/protoc-go-inject-tag
 ```
 
-- install protoc-gen-zeus
+### install [gen-zeus](http://gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/blob/master/README.md)
+- [项目生成器](http://gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/blob/master/README.md)
+- [使用说明](http://gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/blob/master/tools/gen-zeus/README.md)

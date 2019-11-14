@@ -10,7 +10,7 @@ import (
 
 	hello "zeus-examples/sampleservice/proto/gomicro"
 	"zeus-examples/sampleservice/resource/cache"
-	"zeus-examples/sampleservice/resource/rpc"
+	"zeus-examples/sampleservice/resource/rpcclient"
 )
 
 func GetInfo(ctx context.Context, id string) (info string, err error) {

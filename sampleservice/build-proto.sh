@@ -3,7 +3,7 @@
 projectpath=. # 具体的项目路径
 service=hello # 服务名
 
-protoc-gen-zeus --proto ./proto/$service.proto # 生成或更新项目目录结构
+# gen-zeus --proto ./proto/$service.proto # 生成或更新项目目录结构
 
 cd $projectpath/proto
 
