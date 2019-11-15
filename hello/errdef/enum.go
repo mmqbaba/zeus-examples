@@ -1,4 +1,4 @@
-package global
+package errdef
 
 import (
 	"net/http"
@@ -20,3 +20,4 @@ func init() {
 	errors.ECodeMsg[ECodeSampleServiceErr] = "ECodeSampleServiceErr"
 	errors.ECodeStatus[ECodeSampleServiceErr] = http.StatusInternalServerError
 }
+

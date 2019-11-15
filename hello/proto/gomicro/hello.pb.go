@@ -23,9 +23,9 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type HelloRequest struct {
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name"`
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// @inject_tag: validate:"required,gt=0,max=1000"
-	Age                  int32    `protobuf:"varint,2,opt,name=age,proto3" json:"age" validate:"required,gt=0,max=1000"`
+	Age                  int32    `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty" validate:"required,gt=0,max=1000"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -71,7 +71,7 @@ func (m *HelloRequest) GetAge() int32 {
 }
 
 type HelloReply struct {
-	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
+	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -110,7 +110,7 @@ func (m *HelloReply) GetMessage() string {
 }
 
 type PingRequest struct {
-	Ping                 string   `protobuf:"bytes,1,opt,name=ping,proto3" json:"ping"`
+	Ping                 string   `protobuf:"bytes,1,opt,name=ping,proto3" json:"ping,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -149,7 +149,7 @@ func (m *PingRequest) GetPing() string {
 }
 
 type PongReply struct {
-	Pong                 string   `protobuf:"bytes,1,opt,name=pong,proto3" json:"pong"`
+	Pong                 string   `protobuf:"bytes,1,opt,name=pong,proto3" json:"pong,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -188,14 +188,14 @@ func (m *PongReply) GetPong() string {
 }
 
 type UploadReq struct {
-	Content  []byte `protobuf:"bytes,1,opt,name=content,proto3" json:"content"`
-	FileName string `protobuf:"bytes,2,opt,name=file_name,json=fileName,proto3" json:"file_name"`
+	Content  []byte `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	FileName string `protobuf:"bytes,2,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
 	// 文件大小
-	FileSize int64  `protobuf:"varint,3,opt,name=file_size,json=fileSize,proto3" json:"file_size"`
-	MimeType string `protobuf:"bytes,4,opt,name=mime_type,json=mimeType,proto3" json:"mime_type"`
+	FileSize int64  `protobuf:"varint,3,opt,name=file_size,json=fileSize,proto3" json:"file_size,omitempty"`
+	MimeType string `protobuf:"bytes,4,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
 	// 上传完成
-	Finished             bool     `protobuf:"varint,5,opt,name=finished,proto3" json:"finished"`
-	SpId                 string   `protobuf:"bytes,6,opt,name=sp_id,json=spId,proto3" json:"sp_id"`
+	Finished             bool     `protobuf:"varint,5,opt,name=finished,proto3" json:"finished,omitempty"`
+	SpId                 string   `protobuf:"bytes,6,opt,name=sp_id,json=spId,proto3" json:"sp_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -270,7 +270,7 @@ func (m *UploadReq) GetSpId() string {
 
 type UploadResp struct {
 	// 文件id
-	FileId               string   `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id"`
+	FileId               string   `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`

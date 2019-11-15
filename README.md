@@ -197,6 +197,11 @@ go run ./cmd/app
 
 浏览器打开链接[swagger-ui](http://localhost:8081/swagger-ui/)
 
+编译项目
+```bash
+make build
+```
+
 项目目录结构
 ```txt
 分层请求的流向: {http,rpc} => handler => logic => resource
