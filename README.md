@@ -18,7 +18,7 @@
 
 ## golang
 ------
-- [golang](https://golang.google.cn/)，这里使用go1.13，对gomodule有更完善的支持，详情请参考[安装](https://golang.google.cn/doc/install)
+- [golang](https://golang.google.cn/)，这里使用>=go1.13，对gomodule有更完善的支持，详情请参考[安装](https://golang.google.cn/doc/install)
 - [淘宝的镜像](https://mirrors.aliyun.com/goproxy/)
 
 ```
