@@ -95,11 +95,11 @@ windows下需要安装此工具包。安装包 tools/mingw64_x86_64-4.8.2-releas
 ### 数据校验
 
 ## 项目初始化
-
-([gen-zeus](http://gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/tree/master/tools/gen-zeus))
 ------
+([gen-zeus](http://gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/tree/master/tools/gen-zeus))
 
-- 安装gen-zeus工具
+### 安装gen-zeus工具
+
 ```bash
 git clone ssh://git@gitlab.dg.com:10086/BackEnd/jichuchanpin/tif/zeus.git
 cd ./zeus
@@ -117,7 +117,7 @@ go get github.com/mwitkow/go-proto-validators/protoc-gen-govalidators
 go get github.com/favadi/protoc-go-inject-tag
 ```
 
-- 初始化项目
+### 初始化项目
 
 定义proto `hello.proto`
 
@@ -178,7 +178,9 @@ service Hello{
 	"password": "123456"
 }
 ```
+
 设置应用服务配置
+
 ```bash
 # 设值
 ETCDCTL_API=3 etcdctl put /zeus/dzqz {\"go_micro\":{\"server_name\":\"zeus\",\"registry_plugin_type\":\"etcd\",\"registry_addrs\":[\"127.0.0.1:2379\"],\"registry_authuser\":\"root\",\"registry_authpwd\":\"123456\"},\"mongodb\":{\"host\":\"127.0.0.1:27017\",\"user\":\"root\",\"pwd\":\"123456\"},\"mysql_source\":{\"e_seal\":{\"datasourcename\":\"root:123456@tcp(localhost:3306)/e_seal\",\"maxidleconns\":30,\"maxopenconns\":1024}},\"redis\":{\"host\":\"127.0.0.1:6379\",\"pwd\":\"\",\"enable\":false},\"log_conf\":{\"log\":\"console\",\"level\":\"debug\",\"format\":\"text\",\"rotation_time\":\"hour\",\"log_dir\":\"./\"},\"ext\":{\"httphandler_pathprefix\":\"\",\"grpcgateway_pathprefix\":\"\"}}
@@ -268,6 +270,7 @@ vscode开发环境下, f5
 
 ## 单元测试
 ------
+
 ### 对于一些关键代码最好附加上单元测试
 ------
 
@@ -276,5 +279,5 @@ vscode开发环境下, f5
 ## 代码覆盖率
 ------
 [recovery]
-------
+
 - recovery
