@@ -1,5 +1,4 @@
-package rpc
-
+package rpcclient
 import (
 	"context"
 	"sync"
@@ -8,7 +7,7 @@ import (
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-	hello "zeus_app/hello/proto/gomicro"
+	gomicro "zeus_app/hello/proto/gomicro"
 )
 
 var cli client.Client
@@ -16,13 +15,13 @@ var cli client.Client
 type helloService struct {
 	mux    sync.RWMutex
 	name   string
-	client hello.HelloService
+	client gomicro.HelloService
 }
 
-// HelloSrv
+// helloSrv
 var helloSrv helloService
 
-func GetHelloService(ctx context.Context) (hello.HelloService, error) {
+func NewHelloService(ctx context.Context) (gomicro.HelloService, error) {
 	helloSrv.mux.RLock()
 	if helloSrv.client != nil {
 		defer helloSrv.mux.RUnlock()
@@ -37,6 +36,7 @@ func GetHelloService(ctx context.Context) (hello.HelloService, error) {
 		return nil, err
 	}
 	helloSrv.name = "zeus"
-	helloSrv.client = hello.NewHelloService(helloSrv.name, cli)
+	helloSrv.client = gomicro.NewHelloService(helloSrv.name, cli)
 	return helloSrv.client, nil
 }
+

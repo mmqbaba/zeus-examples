@@ -11,11 +11,6 @@ import (
 	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
 )
 
-// func init() {
-// 	zeusmwhttp.SuccessResponse = customSsuccessResponse // 可初始化设置为自定义
-// 	zeusmwhttp.ErrorResponse = customErrorResponse
-// }
-
 func serveHttpHandler(ctx context.Context, pathPrefix string, ng engine.Engine) (http.Handler, error) {
 	log.Println("serveHttpHandler pathPrefix:", pathPrefix)
 	g := gin.New()
@@ -25,13 +20,13 @@ func serveHttpHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	prefixGroup := g.Group(pathPrefix)
 
 	apiGroup := prefixGroup.Group("api")
-	apiGroup.GET("/echo", echo)
+	apiGroup.GET("/echo", getEcho)
 
 	return g, nil
 }
 
-func echo(c *gin.Context) {
+func getEcho(c *gin.Context) {
 	zeusmwhttp.ExtractLogger(c).Debug("echo")
 	zeusmwhttp.SuccessResponse(c, gin.H{"message": "hello, zeus enginego."})
-	// zeusmwhttp.ErrorResponse(c, err)
 }
+

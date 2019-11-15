@@ -4,6 +4,10 @@
     "title": "hello.proto",
     "version": "version not set"
   },
+  "schemes": [
+    "http",
+    "https"
+  ],
   "consumes": [
     "application/json"
   ],
@@ -16,7 +20,7 @@
         "operationId": "Get",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/helloHelloReply"
             }
@@ -46,28 +50,12 @@
         "operationId": "Delete",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/helloHelloReply"
             }
           }
         },
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "age",
-            "description": "@inject_tag: validate:\"required,gt=0,max=1000\".",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
         "tags": [
           "Hello"
         ]
@@ -76,7 +64,7 @@
         "operationId": "SayHello",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/helloHelloReply"
             }
@@ -100,7 +88,7 @@
         "operationId": "Put",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/helloHelloReply"
             }
@@ -126,7 +114,7 @@
         "operationId": "PingPong",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/helloPongReply"
             }
@@ -152,7 +140,7 @@
         "operationId": "Upload",
         "responses": {
           "200": {
-            "description": "A successful response.",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/helloUploadResp"
             }
@@ -161,7 +149,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": " (streaming inputs)",
+            "description": "(streaming inputs)",
             "in": "body",
             "required": true,
             "schema": {
