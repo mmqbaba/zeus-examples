@@ -25,13 +25,13 @@ func serveHttpHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	prefixGroup := g.Group(pathPrefix)
 
 	apiGroup := prefixGroup.Group("api")
-	apiGroup.GET("/user", getUser)
+	apiGroup.GET("/echo", echo)
 
 	return g, nil
 }
 
-func getUser(c *gin.Context) {
-	zeusmwhttp.ExtractLogger(c).Debug("getUser")
+func echo(c *gin.Context) {
+	zeusmwhttp.ExtractLogger(c).Debug("echo")
 	zeusmwhttp.SuccessResponse(c, gin.H{"message": "hello, zeus enginego."})
 	// zeusmwhttp.ErrorResponse(c, err)
 }
