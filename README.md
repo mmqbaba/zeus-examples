@@ -44,9 +44,8 @@ goland or vscode
 
 ## 组件
 ------
-
-- etcd
-### ETCD安装指南
+  
+### etcd
 ####下载
 - 地址
 ```
@@ -78,24 +77,22 @@ ETCDCTL_API=3
 ```
 ./etcdctl get /mykey
 ```
-
 ####Web 管理工具
-- 下载
 ```
 https://github.com/evildecay/etcdkeeper/releases
 ```
 
-- mingw64
+### mingw64
 
 windows下需要安装此工具包。安装包 tools/mingw64_x86_64-4.8.2-release-posix-seh-rt_v3-rev2.7z。解压缩后设置目录'mingw64\bin'到path变量
 
-- 日志组件
+### 日志组件
 
 [logrus](https://github.com/sirupsen/logrus)
 
-- 数据库
+### 数据库
 
-- 数据校验
+### 数据校验
 
 ## 项目初始化
 
