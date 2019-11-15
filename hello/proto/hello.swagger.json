@@ -11,7 +11,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/get": {
+    "/v1/hello": {
       "get": {
         "operationId": "Get",
         "responses": {
@@ -41,11 +41,63 @@
         "tags": [
           "Hello"
         ]
-      }
-    },
-    "/v1/hello": {
+      },
+      "delete": {
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/helloHelloReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "age",
+            "description": "@inject_tag: validate:\"required,gt=0,max=1000\".",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Hello"
+        ]
+      },
       "post": {
         "operationId": "SayHello",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/helloHelloReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/helloHelloRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Hello"
+        ]
+      },
+      "put": {
+        "operationId": "Put",
         "responses": {
           "200": {
             "description": "A successful response.",

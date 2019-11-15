@@ -37,9 +37,11 @@ var _ server.Option
 
 type HelloService interface {
 	SayHello(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error)
+	Get(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error)
+	Put(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error)
+	Delete(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error)
 	PingPong(ctx context.Context, in *PingRequest, opts ...client.CallOption) (*PongReply, error)
 	Upload(ctx context.Context, opts ...client.CallOption) (Hello_UploadService, error)
-	Get(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error)
 }
 
 type helloService struct {
@@ -62,6 +64,36 @@ func NewHelloService(name string, c client.Client) HelloService {
 
 func (c *helloService) SayHello(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error) {
 	req := c.c.NewRequest(c.name, "Hello.SayHello", in)
+	out := new(HelloReply)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *helloService) Get(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error) {
+	req := c.c.NewRequest(c.name, "Hello.Get", in)
+	out := new(HelloReply)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *helloService) Put(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error) {
+	req := c.c.NewRequest(c.name, "Hello.Put", in)
+	out := new(HelloReply)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *helloService) Delete(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error) {
+	req := c.c.NewRequest(c.name, "Hello.Delete", in)
 	out := new(HelloReply)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -116,31 +148,25 @@ func (x *helloServiceUpload) Send(m *UploadReq) error {
 	return x.stream.Send(m)
 }
 
-func (c *helloService) Get(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloReply, error) {
-	req := c.c.NewRequest(c.name, "Hello.Get", in)
-	out := new(HelloReply)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // Server API for Hello service
 
 type HelloHandler interface {
 	SayHello(context.Context, *HelloRequest, *HelloReply) error
+	Get(context.Context, *HelloRequest, *HelloReply) error
+	Put(context.Context, *HelloRequest, *HelloReply) error
+	Delete(context.Context, *HelloRequest, *HelloReply) error
 	PingPong(context.Context, *PingRequest, *PongReply) error
 	Upload(context.Context, Hello_UploadStream) error
-	Get(context.Context, *HelloRequest, *HelloReply) error
 }
 
 func RegisterHelloHandler(s server.Server, hdlr HelloHandler, opts ...server.HandlerOption) error {
 	type hello interface {
 		SayHello(ctx context.Context, in *HelloRequest, out *HelloReply) error
+		Get(ctx context.Context, in *HelloRequest, out *HelloReply) error
+		Put(ctx context.Context, in *HelloRequest, out *HelloReply) error
+		Delete(ctx context.Context, in *HelloRequest, out *HelloReply) error
 		PingPong(ctx context.Context, in *PingRequest, out *PongReply) error
 		Upload(ctx context.Context, stream server.Stream) error
-		Get(ctx context.Context, in *HelloRequest, out *HelloReply) error
 	}
 	type Hello struct {
 		hello
@@ -155,6 +181,18 @@ type helloHandler struct {
 
 func (h *helloHandler) SayHello(ctx context.Context, in *HelloRequest, out *HelloReply) error {
 	return h.HelloHandler.SayHello(ctx, in, out)
+}
+
+func (h *helloHandler) Get(ctx context.Context, in *HelloRequest, out *HelloReply) error {
+	return h.HelloHandler.Get(ctx, in, out)
+}
+
+func (h *helloHandler) Put(ctx context.Context, in *HelloRequest, out *HelloReply) error {
+	return h.HelloHandler.Put(ctx, in, out)
+}
+
+func (h *helloHandler) Delete(ctx context.Context, in *HelloRequest, out *HelloReply) error {
+	return h.HelloHandler.Delete(ctx, in, out)
 }
 
 func (h *helloHandler) PingPong(ctx context.Context, in *PingRequest, out *PongReply) error {
@@ -194,8 +232,4 @@ func (x *helloUploadStream) Recv() (*UploadReq, error) {
 		return nil, err
 	}
 	return m, nil
-}
-
-func (h *helloHandler) Get(ctx context.Context, in *HelloRequest, out *HelloReply) error {
-	return h.HelloHandler.Get(ctx, in, out)
 }
