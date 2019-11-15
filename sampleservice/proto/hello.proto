@@ -47,6 +47,25 @@ service Hello{
             };
     }
 
+    rpc Get(HelloRequest) returns(HelloReply) {
+        option (google.api.http) = {
+            get: "/v1/hello"
+            };
+    }
+
+    rpc Put(HelloRequest) returns(HelloReply) {
+        option (google.api.http) = {
+            put: "/v1/hello"
+            body: "*"
+            };
+    }
+
+    rpc Delete(HelloRequest) returns(HelloReply) {
+        option (google.api.http) = {
+            delete: "/v1/hello"
+            };
+    }
+
     rpc PingPong(PingRequest) returns (PongReply){
         option (google.api.http) = {
             post: "/v1/pingpong"
@@ -58,12 +77,6 @@ service Hello{
         option (google.api.http) = {
             post: "/v1/upload"
             body: "*"
-            };
-    }
-
-    rpc Get(HelloRequest) returns(HelloReply) {
-        option (google.api.http) = {
-            get: "/v1/get"
             };
     }
 }

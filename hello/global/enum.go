@@ -8,8 +8,8 @@ import (
 
 // 每个子项目特有的错误码定义，避免使用 0 ~ 19999，与公共库冲突
 const (
-	ECodeSampleServiceOK errors.ErrorCode = iota + 20000
-	ECodeSampleServiceErr
+	ECodeSampleServiceOK errors.ErrorCode = 20000
+	ECodeSampleServiceErr errors.ErrorCode = 20001
 )
 
 func init() {
