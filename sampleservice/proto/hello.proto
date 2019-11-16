@@ -7,7 +7,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 message HelloRequest{
     string name = 1;
-    // @inject_tag: validate:"required,gt=0,max=1000"
+    // @inject_tag: form:"age" binding:"required,gt=20,lt=27"
     int32 age = 2 [(validator.field) = {int_gt: 20, int_lt: 27}];
 }
 
@@ -42,41 +42,17 @@ message UploadResp {
 service Hello{
     rpc SayHello(HelloRequest) returns (HelloReply){
         option (google.api.http) = {
-            post: "/v1/hello"
+            post: "/api/v1/hello"
             body: "*"
-            };
-    }
-
-    rpc Get(HelloRequest) returns(HelloReply) {
-        option (google.api.http) = {
-            get: "/v1/hello"
-            };
-    }
-
-    rpc Put(HelloRequest) returns(HelloReply) {
-        option (google.api.http) = {
-            put: "/v1/hello"
-            body: "*"
-            };
-    }
-
-    rpc Delete(HelloRequest) returns(HelloReply) {
-        option (google.api.http) = {
-            delete: "/v1/hello"
             };
     }
 
     rpc PingPong(PingRequest) returns (PongReply){
         option (google.api.http) = {
-            post: "/v1/pingpong"
+            post: "/api/v1/pingpong"
             body: "*"
             };
     }
 
-    rpc Upload(stream UploadReq) returns(UploadResp) {
-        option (google.api.http) = {
-            post: "/v1/upload"
-            body: "*"
-            };
-    }
+    rpc Upload(stream UploadReq) returns(UploadResp) {}
 }

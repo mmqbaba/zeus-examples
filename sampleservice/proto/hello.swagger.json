@@ -11,39 +11,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/get": {
-      "get": {
-        "operationId": "Get",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/helloHelloReply"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "age",
-            "description": "@inject_tag: validate:\"required,gt=0,max=1000\".",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "Hello"
-        ]
-      }
-    },
-    "/v1/hello": {
+    "/api/v1/hello": {
       "post": {
         "operationId": "SayHello",
         "responses": {
@@ -69,7 +37,7 @@
         ]
       }
     },
-    "/v1/pingpong": {
+    "/api/v1/pingpong": {
       "post": {
         "operationId": "PingPong",
         "responses": {
@@ -87,33 +55,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/helloPingRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Hello"
-        ]
-      }
-    },
-    "/v1/upload": {
-      "post": {
-        "operationId": "Upload",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/helloUploadResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": " (streaming inputs)",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/helloUploadReq"
             }
           }
         ],
@@ -141,7 +82,7 @@
         "age": {
           "type": "integer",
           "format": "int32",
-          "title": "@inject_tag: validate:\"required,gt=0,max=1000\""
+          "title": "@inject_tag: form:\"age\" binding:\"required,gt=20,lt=27\""
         }
       }
     },
@@ -157,34 +98,6 @@
       "type": "object",
       "properties": {
         "pong": {
-          "type": "string"
-        }
-      }
-    },
-    "helloUploadReq": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "string",
-          "format": "byte"
-        },
-        "file_name": {
-          "type": "string"
-        },
-        "file_size": {
-          "type": "string",
-          "format": "int64",
-          "title": "文件大小"
-        },
-        "mime_type": {
-          "type": "string"
-        },
-        "finished": {
-          "type": "boolean",
-          "format": "boolean",
-          "title": "上传完成"
-        },
-        "sp_id": {
           "type": "string"
         }
       }

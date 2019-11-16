@@ -7,7 +7,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 message HelloRequest{
     string name = 1;
-    // @inject_tag: validate:"required,gt=0,max=1000"
+    // @inject_tag: form:"age" binding:"required,gt=20,lt=27"
     int32 age = 2 [(validator.field) = {int_gt: 20, int_lt: 27}];
 }
 
