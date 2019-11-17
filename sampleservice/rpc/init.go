@@ -11,7 +11,7 @@ import (
 
 	"zeus-examples/sampleservice/global"
 	"zeus-examples/sampleservice/handler"
-	hello "zeus-examples/sampleservice/proto/gomicro"
+	"zeus-examples/sampleservice/proto/hello"
 )
 
 func init() {

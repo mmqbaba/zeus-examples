@@ -6,7 +6,7 @@ import (
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-	hello "zeus-examples/sampleservice/proto/gomicro"
+	"zeus-examples/sampleservice/proto/hello"
 )
 
 func (h *Hello) Upload(ctx context.Context, stream hello.Hello_UploadStream) error {

@@ -6,7 +6,7 @@ import (
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
 	"zeus-examples/sampleservice/logic/user"
-	hello "zeus-examples/sampleservice/proto/gomicro"
+	"zeus-examples/sampleservice/proto/hello"
 )
 
 func (h *Hello) SayHello(ctx context.Context, req *hello.HelloRequest, rsp *hello.HelloReply) (err error) {

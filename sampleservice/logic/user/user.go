@@ -8,7 +8,7 @@ import (
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-	hello "zeus-examples/sampleservice/proto/gomicro"
+	"zeus-examples/sampleservice/proto/hello"
 	"zeus-examples/sampleservice/resource/cache"
 	"zeus-examples/sampleservice/resource/rpcclient"
 )

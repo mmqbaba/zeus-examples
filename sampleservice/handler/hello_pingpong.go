@@ -5,7 +5,7 @@ import (
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-	hello "zeus-examples/sampleservice/proto/gomicro"
+	"zeus-examples/sampleservice/proto/hello"
 )
 
 func (h *Hello) PingPong(ctx context.Context, req *hello.PingRequest, rsp *hello.PongReply) (err error) {

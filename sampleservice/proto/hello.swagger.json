@@ -1,9 +1,16 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "hello.proto",
-    "version": "version not set"
+    "title": "hello",
+    "version": "1.0"
   },
+  "host": "localhost:8081",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https",
+    "wss"
+  ],
   "consumes": [
     "application/json"
   ],
@@ -11,7 +18,7 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/hello": {
+    "/v1/hello": {
       "post": {
         "operationId": "SayHello",
         "responses": {
@@ -37,7 +44,7 @@
         ]
       }
     },
-    "/api/v1/pingpong": {
+    "/v1/pingpong": {
       "post": {
         "operationId": "PingPong",
         "responses": {

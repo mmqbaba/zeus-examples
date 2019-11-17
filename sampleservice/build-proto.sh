@@ -7,33 +7,34 @@ service=hello # 服务名
 
 cd $projectpath/proto
 
-# gen-gomicro gen-validator
-mkdir gomicro
+# gen-gomicro gen-grpc-gateway gen-validator swagger
+mkdir $service
 protoc -I. \
    -I$GOPATH/src \
    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway \
    --proto_path=${GOPATH}/src/github.com/google/protobuf/src \
-   --go_out=./gomicro/ \
-   --micro_out=./gomicro/ \
-   --govalidators_out=./gomicro \
+   --go_out=plugins=grpc:./$service \
+   --grpc-gateway_out=logtostderr=true:./$service \
+   --micro_out=./$service \
+   --govalidators_out=./$service \
+   --swagger_out=logtostderr=true:. \
    ./$service.proto
-protoc-go-inject-tag -input=./gomicro/$service.pb.go # inject tag
+protoc-go-inject-tag -input=./$service/$service.pb.go # inject tag
 
-# gen-grpc gen-grpc-gateway gen-validator
-# mkdir gw
+sed -i 's/RegisterHelloHandler(/RegisterHelloHandlerGW(/g' ./$service/$service.pb.gw.go
+sed -i 's/ RegisterHelloHandler / RegisterHelloHandlerGW /g' ./$service/$service.pb.gw.go
+
+# gen-gomicro gen-grpc-gateway gen-validator swagger
 # protoc -I. \
 #    -I$GOPATH/src \
 #    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+#    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway \
 #    --proto_path=${GOPATH}/src/github.com/google/protobuf/src \
-#    --go_out=plugins=grpc:./gw \
-#    --grpc-gateway_out=logtostderr=true:./gw \
-#    --govalidators_out=./gw \
+#    --go_out=plugins=grpc:./$service \
+#    --grpc-gateway_out=logtostderr=true:./$service \
+#    --micro_out=./$service \
+#    --govalidators_out=./$service \
+#    --swagger_out=logtostderr=true:. \
 #    ./$service.proto
-# protoc-go-inject-tag -input=./gw/$service.pb.go # inject tag
-
-# gen-swagger
-protoc -I. \
-  -I$GOPATH/src \
-  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-  --swagger_out=logtostderr=true:. \
-   ./$service.proto
+# protoc-go-inject-tag -input=./$service/$service.pb.go # inject tag
