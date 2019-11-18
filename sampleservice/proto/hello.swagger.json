@@ -4,12 +4,9 @@
     "title": "hello",
     "version": "1.0"
   },
-  "host": "localhost:8081",
   "basePath": "/",
   "schemes": [
-    "http",
-    "https",
-    "wss"
+    "http"
   ],
   "consumes": [
     "application/json"
