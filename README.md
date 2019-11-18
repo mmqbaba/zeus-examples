@@ -19,10 +19,10 @@
 ## golang
 ------
 - [golang](https://golang.google.cn/)，这里使用>=go1.13，对gomodule有更完善的支持，详情请参考[安装](https://golang.google.cn/doc/install)
-- [淘宝的镜像](https://mirrors.aliyun.com/goproxy/)
+- [镜像](https://goproxy.cn)
 
 ```
-go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
+go env -w GOPROXY=https://goproxy.cn,direct
 ```
 
 ## 开发工具

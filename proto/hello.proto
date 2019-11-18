@@ -73,10 +73,5 @@ service Hello{
             };
     }
 
-    rpc Upload(stream UploadReq) returns(UploadResp) {
-        option (google.api.http) = {
-            post: "/v1/upload"
-            body: "*"
-            };
-    }
+    rpc Upload(stream UploadReq) returns(UploadResp) {}
 }
