@@ -7,11 +7,11 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-    host: "localhost:8081",
+    // host: "localhost:8081",
     base_path: "/";
     schemes: HTTP;
-	schemes: HTTPS;
-	schemes: WSS;
+	// schemes: HTTPS;
+	// schemes: WSS;
     info: {
 		title: "hello";
         version: "1.0";
