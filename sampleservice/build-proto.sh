@@ -13,7 +13,6 @@ protoc -I. \
    -I$GOPATH/src \
    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway \
-   --proto_path=${GOPATH}/src/github.com/google/protobuf/src \
    --go_out=plugins=grpc:./$service \
    --grpc-gateway_out=logtostderr=true:./$service \
    --micro_out=./$service \
@@ -30,7 +29,6 @@ sed -i 's/ RegisterHelloHandler / RegisterHelloHandlerGW /g' ./$service/$service
 #    -I$GOPATH/src \
 #    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 #    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway \
-#    --proto_path=${GOPATH}/src/github.com/google/protobuf/src \
 #    --go_out=plugins=grpc:./$service \
 #    --grpc-gateway_out=logtostderr=true:./$service \
 #    --micro_out=./$service \
