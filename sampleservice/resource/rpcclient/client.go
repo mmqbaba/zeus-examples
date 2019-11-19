@@ -36,7 +36,7 @@ func GetHelloService(ctx context.Context) (hello.HelloService, error) {
 	if err != nil {
 		return nil, err
 	}
-	helloSrv.name = "zeus"
+	helloSrv.name = "hello"
 	helloSrv.client = hello.NewHelloService(helloSrv.name, cli)
 	return helloSrv.client, nil
 }
