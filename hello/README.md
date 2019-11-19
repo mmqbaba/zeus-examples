@@ -20,7 +20,7 @@
 			"pwd": ""
 	},
 		"go_micro": {
-		"server_name": "zeus",
+		"service_name": "zeus",
 			"registry_plugin_type": "etcd",
 			"registry_addrs": ["127.0.0.1:2379"],
 		"registry_authuser": "root",
