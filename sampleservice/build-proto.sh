@@ -18,7 +18,7 @@ protoc -I. \
    --micro_out=./$service \
    --govalidators_out=./$service \
    --swagger_out=logtostderr=true:. \
-   ./$service.proto
+   $service.proto
 protoc-go-inject-tag -input=./$service/$service.pb.go # inject tag
 
 sed -i 's/RegisterHelloHandler(/RegisterHelloHandlerGW(/g' ./$service/$service.pb.gw.go
