@@ -46,6 +46,7 @@ func init() {
 
 	// http handler
 	global.ServiceOpts = append(global.ServiceOpts, service.WithHttpHandlerRegisterFnOption(getHandlerRegisterFn()))
+	global.ServiceOpts = append(global.ServiceOpts, service.WithSwaggerJSONFileName("hello"))
 }
 
 func gwHandlerRegister(ctx context.Context, endpoint string, opts []grpc.DialOption) (m *gruntime.ServeMux, err error) {
