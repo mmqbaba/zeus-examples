@@ -10,7 +10,7 @@ enum ErrCode {
     OKHolder = 0;
 
     // sampleservice
-    ECodeSampleServiceErr = 20001; //SampleServiceErr,http.StatusInternalServerError
+    ECodeSampleServiceErr = 20001; // SampleServiceErr,http.StatusInternalServerError
 
     // sealservice
     ECodeSealServiceErr = 30001; // SampleServiceErr,http.StatusInternalServerError
