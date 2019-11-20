@@ -13,7 +13,7 @@ enum ErrCode {
 
     // sampleservice
     ECodeSampleServiceErr = 20001; //SampleServiceErr^http.StatusInternalServerError
-
+    
     // sealservice
     ECodeSealServiceErr = 30001; // SampleServiceErr^http.StatusInternalServerError
 }
