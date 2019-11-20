@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package errdef;
+
+// 这里需import公共库错误proto文件定义
+
+// 每个子项目特有的错误码定义，避免使用 0 ~ 19999，与公共库冲突
+enum ErrCode {
+    // 只是用做占位
+    OKHolder = 0;
+
+    // sampleservice
+    ECodeSampleServiceErr = 20001; //SampleServiceErr,http.StatusInternalServerError
+
+    // sealservice
+    ECodeSealServiceErr = 30001; // SampleServiceErr,http.StatusInternalServerError
+}
