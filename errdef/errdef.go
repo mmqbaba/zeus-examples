@@ -8,7 +8,9 @@ import (
 
 // 每个子项目特有的错误码定义，避免使用 0 ~ 19999，与公共库冲突
 const (
-	ECodeOK errors.ErrorCode = 0
+	// 由公共库proto定义
+	ECodeSuccessed errors.ErrorCode = 0
+	ECodeSystem errors.ErrorCode = 10001
 
 	// sampleservice
 	ECodeSampleServiceErr errors.ErrorCode = 20001
@@ -19,8 +21,10 @@ const (
 
 func init() {
 	// ECodeMsg and ECodeStatus
-	errors.ECodeMsg[ECodeOK] = "ok"
-	errors.ECodeStatus[ECodeOK] = http.StatusOK
+	errors.ECodeMsg[ECodeSuccessed] = "ok"
+	errors.ECodeStatus[ECodeSuccessed] = http.StatusOK
+	errors.ECodeMsg[ECodeSystem] = "系统错误"
+	errors.ECodeStatus[ECodeSystem] = http.StatusOK
 
 	errors.ECodeMsg[ECodeSampleServiceErr] = "SampleServiceErr"
 	errors.ECodeStatus[ECodeSampleServiceErr] = http.StatusInternalServerError
