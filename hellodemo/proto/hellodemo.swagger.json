@@ -1,0 +1,187 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "hellodemo.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/hello": {
+      "get": {
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/hellodemoHelloReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "age",
+            "description": "@inject_tag: form:\"age\" binding:\"required,gt=20,lt=27\".",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "HelloDemo"
+        ]
+      },
+      "delete": {
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/hellodemoHelloReply"
+            }
+          }
+        },
+        "tags": [
+          "HelloDemo"
+        ]
+      },
+      "post": {
+        "operationId": "SayHello",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/hellodemoHelloReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/hellodemoHelloRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HelloDemo"
+        ]
+      },
+      "put": {
+        "operationId": "Put",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/hellodemoHelloReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/hellodemoHelloRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HelloDemo"
+        ]
+      }
+    },
+    "/v1/pingpong": {
+      "post": {
+        "operationId": "PingPong",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/hellodemoPongReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/hellodemoPingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HelloDemo"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "hellodemoHelloReply": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "hellodemoHelloRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@inject_tag: form:\"age\" binding:\"required,gt=20,lt=27\""
+        }
+      }
+    },
+    "hellodemoPingRequest": {
+      "type": "object",
+      "properties": {
+        "ping": {
+          "type": "string"
+        }
+      }
+    },
+    "hellodemoPongReply": {
+      "type": "object",
+      "properties": {
+        "pong": {
+          "type": "string"
+        }
+      }
+    },
+    "hellodemoUploadResp": {
+      "type": "object",
+      "properties": {
+        "file_id": {
+          "type": "string",
+          "title": "文件id"
+        }
+      }
+    }
+  }
+}
