@@ -2,7 +2,6 @@ syntax="proto3";
 
 package errdef;
 
-import "../zeus/errors/errdef.proto";
 
 // 这里需import公共库错误proto文件定义
 
@@ -13,7 +12,7 @@ enum ErrCode {
 
     // sampleservice
     ECodeSampleServiceErr = 20001; //SampleServiceErr^http.StatusInternalServerError
-    
+
     // sealservice
     ECodeSealServiceErr = 30001; // SampleServiceErr^http.StatusInternalServerError
 }

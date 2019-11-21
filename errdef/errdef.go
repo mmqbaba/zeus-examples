@@ -2,9 +2,8 @@
 package errdef
 
 import (
-	"net/http"
-
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
+	"net/http"
 )
 
 // 每个子项目特有的错误码定义，避免使用 0 ~ 19999，与公共库冲突
@@ -12,7 +11,6 @@ const (
 	ErrCodeLogicBegin errors.ErrorCode = 40001
 	ECodeSampleServiceErr errors.ErrorCode = 20001
 	ECodeSealServiceErr errors.ErrorCode = 30001
-	ECodeSystem errors.ErrorCode = 10001
 
 )
 
@@ -23,7 +21,6 @@ func init() {
 	errors.ECodeStatus[ECodeSampleServiceErr] = http.StatusInternalServerError
 	errors.ECodeMsg[ECodeSealServiceErr] = "SampleServiceErr"
 	errors.ECodeStatus[ECodeSealServiceErr] = http.StatusInternalServerError
-	errors.ECodeMsg[ECodeSystem] = "系统错误,http.StatusOK"
 
 }
 
