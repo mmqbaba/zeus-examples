@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "hellodemo.proto",
-    "version": "version not set"
+    "title": "hellodemo",
+    "version": "1.0"
   },
+  "basePath": "/",
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
   "consumes": [
     "application/json"
@@ -20,7 +20,7 @@
         "operationId": "Get",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/hellodemoHelloReply"
             }
@@ -50,12 +50,28 @@
         "operationId": "Delete",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/hellodemoHelloReply"
             }
           }
         },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "age",
+            "description": "@inject_tag: form:\"age\" binding:\"required,gt=20,lt=27\".",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "HelloDemo"
         ]
@@ -64,7 +80,7 @@
         "operationId": "SayHello",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/hellodemoHelloReply"
             }
@@ -88,7 +104,7 @@
         "operationId": "Put",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/hellodemoHelloReply"
             }
@@ -114,7 +130,7 @@
         "operationId": "PingPong",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/hellodemoPongReply"
             }

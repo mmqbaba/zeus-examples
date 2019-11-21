@@ -4,6 +4,16 @@ package hellodemo;
 
 import "google/api/annotations.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    base_path: "/";
+    schemes: HTTP;
+    info: {
+		title: "hellodemo";
+        version: "1.0";
+	};
+};
 
 
 enum HelloDemoErrCode {
