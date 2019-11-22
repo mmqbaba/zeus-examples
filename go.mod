@@ -18,7 +18,6 @@ require (
 	github.com/mwitkow/go-proto-validators v0.2.0
 	github.com/sirupsen/logrus v1.4.2
 	gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus v0.0.0
-	golang.org/x/net v0.0.0-20191105084925-a882066a44e0
 	google.golang.org/genproto v0.0.0-20191028173616-919d9bdd9fe6
 	google.golang.org/grpc v1.25.0
 )
