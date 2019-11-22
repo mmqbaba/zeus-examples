@@ -18,6 +18,7 @@ cd $projectpath/proto
 # gen-gomicro gen-grpc-gateway gen-validator swagger
 
 protoc -I../../proto \
+   -I../../../zeus/proto/third_party \
    -I$GOPATH/src \
    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway \
