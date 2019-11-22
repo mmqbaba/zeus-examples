@@ -1,0 +1,86 @@
+syntax="proto3";
+
+package sample;
+
+import "google/api/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    // host: "localhost:8081",
+    base_path: "/";
+    schemes: HTTP;
+	// schemes: HTTPS;
+	// schemes: WSS;
+    info: {
+		title: "sample";
+        version: "1.0";
+		// contact: {
+		// 	name: "";
+		// 	url: "";
+		// 	email: "";
+		// };
+		// license: {
+		// 	name: "";
+		// 	url: "";
+		// };
+		// extensions: {
+		// 	key: "x-zeus-api";
+		// 	value {
+		// 		string_value: "api";
+		// 	}
+		// }
+	};
+};
+
+message Request{
+    string name = 1;
+    // @inject_tag: form:"age" binding:"required,gt=20,lt=27"
+    int32 age = 2 [(validator.field) = {int_gt: 20, int_lt: 27}];
+}
+
+message Reply{
+    string message=1;
+}
+
+message PingRequest{
+    string ping = 1;
+}
+
+message PongReply{
+    string pong = 1;
+}
+
+message UploadReq {
+    bytes content = 1;
+    string file_name = 2;
+    // 文件大小
+    int64 file_size = 3;
+    string mime_type = 4;
+    // 上传完成
+    bool finished = 5;
+    string sp_id = 6;
+}
+
+message UploadResp {
+    // 文件id
+    string file_id = 1;
+}
+
+service Sample{
+    rpc SayHello(Request) returns (Reply){
+        option (google.api.http) = {
+            post: "/v1/hello"
+            body: "*"
+            };
+    }
+
+    rpc PingPong(PingRequest) returns (PongReply){
+        option (google.api.http) = {
+            post: "/v1/pingpong"
+            body: "*"
+            };
+    }
+
+    rpc Upload(stream UploadReq) returns(UploadResp) {}
+}

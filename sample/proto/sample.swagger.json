@@ -1,0 +1,119 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "sample",
+    "version": "1.0"
+  },
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/hello": {
+      "post": {
+        "operationId": "SayHello",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sampleReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sampleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Sample"
+        ]
+      }
+    },
+    "/v1/pingpong": {
+      "post": {
+        "operationId": "PingPong",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/samplePongReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/samplePingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Sample"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "samplePingRequest": {
+      "type": "object",
+      "properties": {
+        "ping": {
+          "type": "string"
+        }
+      }
+    },
+    "samplePongReply": {
+      "type": "object",
+      "properties": {
+        "pong": {
+          "type": "string"
+        }
+      }
+    },
+    "sampleReply": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "sampleRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@inject_tag: form:\"age\" binding:\"required,gt=20,lt=27\""
+        }
+      }
+    },
+    "sampleUploadResp": {
+      "type": "object",
+      "properties": {
+        "file_id": {
+          "type": "string",
+          "title": "文件id"
+        }
+      }
+    }
+  }
+}

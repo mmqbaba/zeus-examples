@@ -15,4 +15,7 @@ enum ErrCode {
 
     // sealservice
     ECodeSealServiceErr = 30001; // SampleServiceErr^http.StatusInternalServerError
+
+    // sample
+    ECodeSampleInvalidParams = 50001; // sample invalid params^http.StatusOK
 }
