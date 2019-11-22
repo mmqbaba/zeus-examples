@@ -9,7 +9,8 @@ import (
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
 	"zeus-examples/sampleservice/proto/hello"
-	"zeus-examples/sampleservice/resource/cache"
+	"zeus-examples/sample/proto/samplepb"
+	"zeus-examples/sample/resource/cache"
 	rpc "zeus-examples/sample/resource/rpcclient"
 )
 
@@ -36,5 +37,8 @@ func GetInfo(ctx context.Context, id string) (info string, err error) {
 		return
 	}
 	zeusctx.ExtractLogger(ctx).Debug("cli.PingPong success. rsp.Pong:", rsp.Pong)
+
+	sampleSrv, _ := rpc.NewSampleService(ctx)
+	sampleSrv.PingPong(ctx, &sample.PingRequest{Ping: "ping"})
 	return
 }

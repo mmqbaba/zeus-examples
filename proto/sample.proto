@@ -8,7 +8,7 @@ import "protoc-gen-swagger/options/annotations.proto";
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
     // host: "localhost:8081",
-    base_path: "/";
+    base_path: "/api";
     schemes: HTTP;
 	// schemes: HTTPS;
 	// schemes: WSS;

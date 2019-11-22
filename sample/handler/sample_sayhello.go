@@ -6,7 +6,7 @@ import (
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
 	gomicro "zeus-examples/sample/proto/samplepb"
-	"zeus-examples/sampleservice/logic/user"
+	"zeus-examples/sample/logic/user"
 )
 
 
