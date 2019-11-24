@@ -12,6 +12,7 @@ replace (
 require (
 	github.com/coreos/etcd v3.3.13+incompatible
 	github.com/gin-gonic/gin v1.3.0
+	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/golang/protobuf v1.3.2
 	github.com/grpc-ecosystem/grpc-gateway v1.12.0
 	github.com/micro/go-micro v1.7.1-0.20190627135301-d8e998ad85fe

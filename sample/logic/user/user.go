@@ -8,10 +8,10 @@ import (
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-	"zeus-examples/sampleservice/proto/hello"
-	"zeus-examples/sample/proto/samplepb"
+	sample "zeus-examples/sample/proto/samplepb"
 	"zeus-examples/sample/resource/cache"
 	rpc "zeus-examples/sample/resource/rpcclient"
+	"zeus-examples/sampleservice/proto/hello"
 )
 
 func GetInfo(ctx context.Context, id string) (info string, err error) {
@@ -40,5 +40,14 @@ func GetInfo(ctx context.Context, id string) (info string, err error) {
 
 	sampleSrv, _ := rpc.NewSampleService(ctx)
 	sampleSrv.PingPong(ctx, &sample.PingRequest{Ping: "ping"})
+	return
+}
+
+func GetInfoEx(ctx context.Context, id string) (info string, err error) {
+	info, err = cache.GetUser(ctx, id)
+	if err != nil {
+		return
+	}
+	zeusctx.ExtractLogger(ctx).Debugf("info:%s@%s", id, info)
 	return
 }

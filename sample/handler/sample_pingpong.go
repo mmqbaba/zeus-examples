@@ -8,10 +8,10 @@ import (
 	gomicro "zeus-examples/sample/proto/samplepb"
 )
 
-
 func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *gomicro.PongReply) (err error) {
 	logger := zeusctx.ExtractLogger(ctx)
 	logger.Debug("PingPong")
 
+	rsp.Pong = "pong"
 	return
 }
