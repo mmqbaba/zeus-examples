@@ -43,176 +43,155 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func TestHTTP_SayHello(t *testing.T) {
-	reqVal := &proto.Request{
-		Name: "mark",
-		Age:  21,
-	}
-	jsonStr, _ := utils.Marshal(reqVal)
-
-	req, err := http.NewRequest("POST", "/api/v1/hello", bytes.NewBuffer(jsonStr))
-	if err != nil {
-		t.Fatal(err)
-	}
-	req.Header.Set("Content-Type", "application/json")
+func executeRequest(req *http.Request) *httptest.ResponseRecorder {
 	rr := httptest.NewRecorder()
-	handler := global.GetNG().GetContainer().GetHTTPHandler()
-	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-		return
-	}
-	expected := `{"message":"hello world, mark."}`
-	ret := errors.ECodeSuccessed.ParseErr("")
-	rsp := &proto.Reply{}
-	ret.Data = rsp
-	err = utils.Unmarshal(rr.Body.Bytes(), ret)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if ret.ErrCode != errors.ECodeSuccessed {
-		t.Errorf("handler returned wrong err code: got %v want %v",
-			ret.ErrCode, errors.ECodeSuccessed)
-		return
-	}
-	result, err := utils.Marshal(rsp)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(result) != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			string(result), expected)
-		return
+	global.GetNG().GetContainer().GetHTTPHandler().ServeHTTP(rr, req)
+	return rr
+}
+
+func checkResponseStatusCode(t *testing.T, expected, actual int) {
+	if expected != actual {
+		t.Errorf("Expected response statuscode %d. Got %d\n", expected, actual)
 	}
 }
 
-func TestHTTP_PingPong(t *testing.T) {
-	reqVal := &proto.PingRequest{
-		Ping: "ping",
-	}
-	jsonStr, _ := utils.Marshal(reqVal)
-
-	req, err := http.NewRequest("POST", "/api/v1/pingpong", bytes.NewBuffer(jsonStr))
-	if err != nil {
-		t.Fatal(err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-	rr := httptest.NewRecorder()
-	handler := global.GetNG().GetContainer().GetHTTPHandler()
-	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-		return
-	}
-	expected := `{"pong":"pong"}`
-	ret := errors.ECodeSuccessed.ParseErr("")
-	rsp := &proto.PongReply{}
-	ret.Data = rsp
-	err = utils.Unmarshal(rr.Body.Bytes(), ret)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if ret.ErrCode != errors.ECodeSuccessed {
-		t.Errorf("handler returned wrong err code: got %v want %v",
-			ret.ErrCode, errors.ECodeSuccessed)
-		return
-	}
-	result, err := utils.Marshal(rsp)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(result) != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			string(result), expected)
-		return
+func checkErrCode(t *testing.T, expected errors.ErrorCode, ret *errors.Error) {
+	if ret.ErrCode != expected {
+		t.Errorf("Expected response errcode %d. Got %d\n",
+			expected, ret.ErrCode)
 	}
 }
 
-func TestGoMicro_SayHello(t *testing.T) {
-	reqVal := &proto.Request{
-		Name: "mark",
-		Age:  21,
-	}
-	jsonStr, _ := utils.Marshal(reqVal)
+func TestHTTP(t *testing.T) {
+	// 路径带前缀'/api'
+	t.Run("/api/v1/hello", sayHello("/api/v1/hello"))
+	t.Run("/api/v1/pingpong", pingPong("/api/v1/pingpong"))
+}
+func TestGoMicroGrpcGateway(t *testing.T) {
+	// 路径不带前缀'/api'
+	t.Run("/v1/hello", sayHello("/v1/hello"))
+	t.Run("/v1/pingpong", pingPong("/v1/pingpong"))
+}
 
-	req, err := http.NewRequest("POST", "/v1/hello", bytes.NewBuffer(jsonStr))
-	if err != nil {
-		t.Fatal(err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-	rr := httptest.NewRecorder()
-	handler := global.GetNG().GetContainer().GetHTTPHandler()
-	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-		return
-	}
-	expected := `{"message":"hello world, mark."}`
-	ret := errors.ECodeSuccessed.ParseErr("")
-	rsp := &proto.Reply{}
-	ret.Data = rsp
-	err = utils.Unmarshal(rr.Body.Bytes(), ret)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if ret.ErrCode != errors.ECodeSuccessed {
-		t.Errorf("handler returned wrong err code: got %v want %v",
-			ret.ErrCode, errors.ECodeSuccessed)
-		return
-	}
-	result, err := utils.Marshal(rsp)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(result) != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			string(result), expected)
-		return
+func sayHello(url string) func(t *testing.T) {
+	return func(t *testing.T) {
+		type args struct {
+			req *proto.Request
+			ret *errors.Error
+		}
+		tests := []struct {
+			name           string
+			args           args
+			wantStatusCode int
+			wantErrCode    errors.ErrorCode
+			wantRsp        *proto.Reply
+		}{
+			// TODO: Add test cases.
+			{
+				"name_field",
+				args{
+					&proto.Request{
+						Name: "mark",
+						Age:  21,
+					},
+					&errors.Error{},
+				},
+				http.StatusOK,
+				errors.ECodeSuccessed,
+				&proto.Reply{
+					Message: "hello world, mark.",
+				},
+			}, {
+				"age_field_validated_failed",
+				args{
+					&proto.Request{
+						Name: "mark",
+						Age:  2,
+					},
+					&errors.Error{},
+				},
+				http.StatusOK,
+				errors.ECodeInvalidParams,
+				&proto.Reply{},
+			},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				jsonStr, _ := utils.Marshal(tt.args.req)
+				req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+				if err != nil {
+					t.Fatal(err)
+				}
+				req.Header.Set("Content-Type", "application/json")
+				rr := executeRequest(req)
+				checkResponseStatusCode(t, tt.wantStatusCode, rr.Code)
+				rsp := &proto.Reply{}
+				tt.args.ret.Data = rsp
+				err = utils.Unmarshal(rr.Body.Bytes(), tt.args.ret)
+				if err != nil {
+					t.Fatal(err)
+				}
+				checkErrCode(t, tt.wantErrCode, tt.args.ret)
+				if rsp.Message != tt.wantRsp.Message {
+					t.Errorf("Expected response rsp %v. Got %v\n",
+						tt.wantRsp, rsp)
+				}
+			})
+		}
 	}
 }
 
-func TestGoMicro_PingPong(t *testing.T) {
-	reqVal := &proto.PingRequest{
-		Ping: "ping",
-	}
-	jsonStr, _ := utils.Marshal(reqVal)
-
-	req, err := http.NewRequest("POST", "/v1/pingpong", bytes.NewBuffer(jsonStr))
-	if err != nil {
-		t.Fatal(err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-	rr := httptest.NewRecorder()
-	handler := global.GetNG().GetContainer().GetHTTPHandler()
-	handler.ServeHTTP(rr, req)
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-		return
-	}
-	expected := `{"pong":"pong"}`
-	ret := errors.ECodeSuccessed.ParseErr("")
-	rsp := &proto.PongReply{}
-	ret.Data = rsp
-	err = utils.Unmarshal(rr.Body.Bytes(), ret)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if ret.ErrCode != errors.ECodeSuccessed {
-		t.Errorf("handler returned wrong err code: got %v want %v",
-			ret.ErrCode, errors.ECodeSuccessed)
-		return
-	}
-	result, err := utils.Marshal(rsp)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(result) != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			string(result), expected)
-		return
+func pingPong(url string) func(t *testing.T) {
+	return func(t *testing.T) {
+		type args struct {
+			req *proto.PingRequest
+			ret *errors.Error
+		}
+		tests := []struct {
+			name           string
+			args           args
+			wantStatusCode int
+			wantErrCode    errors.ErrorCode
+			wantRsp        *proto.PongReply
+		}{
+			// TODO: Add test cases.
+			{
+				"pp",
+				args{
+					&proto.PingRequest{
+						Ping: "ping",
+					},
+					&errors.Error{},
+				},
+				http.StatusOK,
+				errors.ECodeSuccessed,
+				&proto.PongReply{
+					Pong: "pong",
+				},
+			},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				jsonStr, _ := utils.Marshal(tt.args.req)
+				req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+				if err != nil {
+					t.Fatal(err)
+				}
+				req.Header.Set("Content-Type", "application/json")
+				rr := executeRequest(req)
+				checkResponseStatusCode(t, tt.wantStatusCode, rr.Code)
+				rsp := &proto.PongReply{}
+				tt.args.ret.Data = rsp
+				err = utils.Unmarshal(rr.Body.Bytes(), tt.args.ret)
+				if err != nil {
+					t.Fatal(err)
+				}
+				checkErrCode(t, tt.wantErrCode, tt.args.ret)
+				if rsp.Pong != tt.wantRsp.Pong {
+					t.Errorf("Expected response rsp %v. Got %v\n",
+						tt.wantRsp, rsp)
+				}
+			})
+		}
 	}
 }
