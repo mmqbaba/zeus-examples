@@ -45,15 +45,15 @@ func TestSample_SayHello(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-            expected := &gomicro.Reply{Message: "hello world, " + tt.args.req.Name + "."}
+			expected := &gomicro.Reply{Message: "hello world, " + tt.args.req.Name + "."}
 			if err := tt.h.SayHello(tt.args.ctx, tt.args.req, tt.args.rsp); (err != nil) != tt.wantErr {
 				t.Errorf("Sample.SayHello() error = %v, wantErr %v", err, tt.wantErr)
-            }
-            if tt.args.rsp.Message != expected.Message {
-                t.Errorf("Sample.SayHello() handler returned unexpected message: got %v want %v",
-                tt.args.rsp.Message, expected.Message)
-                return
-            }
+			}
+			if tt.args.rsp.Message != expected.Message {
+				t.Errorf("Sample.SayHello() handler returned unexpected message: got %v want %v",
+					tt.args.rsp.Message, expected.Message)
+				return
+			}
 		})
 	}
 }

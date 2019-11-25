@@ -2,11 +2,11 @@ package cache
 
 import (
 	"context"
-    "testing"
+	"testing"
 
-    zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-    "zeus-examples/sample/global"
+	"zeus-examples/sample/global"
 )
 
 func TestGetUser(t *testing.T) {
@@ -15,7 +15,7 @@ func TestGetUser(t *testing.T) {
 	logger := cnt.GetLogger()
 	ctx = zeusctx.LoggerToContext(ctx, logger.WithField("tag", "sample_reource_cache_getuser_test"))
 	rdc := cnt.GetRedisCli().GetCli()
-    ctx = zeusctx.RedisToContext(ctx, rdc)
+	ctx = zeusctx.RedisToContext(ctx, rdc)
 
 	type args struct {
 		ctx context.Context
@@ -27,16 +27,16 @@ func TestGetUser(t *testing.T) {
 		wantInfo string
 		wantErr  bool
 	}{
-        // TODO: Add test cases.
-        {
-            "001",
-            args{
-                ctx,
-                "001",
-            },
-            "mark",
-            false,
-        },
+		// TODO: Add test cases.
+		{
+			"001",
+			args{
+				ctx,
+				"001",
+			},
+			"mark",
+			false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -58,7 +58,7 @@ func TestSetUser(t *testing.T) {
 	logger := cnt.GetLogger()
 	ctx = zeusctx.LoggerToContext(ctx, logger.WithField("tag", "sample_reource_cache_setuser_test"))
 	rdc := cnt.GetRedisCli().GetCli()
-    ctx = zeusctx.RedisToContext(ctx, rdc)
+	ctx = zeusctx.RedisToContext(ctx, rdc)
 
 	type args struct {
 		ctx  context.Context
@@ -70,16 +70,16 @@ func TestSetUser(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-        // TODO: Add test cases.
-        {
-            "001",
-            args{
-                ctx,
-                "001",
-                "mark",
-            },
-            false,
-        },
+		// TODO: Add test cases.
+		{
+			"001",
+			args{
+				ctx,
+				"001",
+				"mark",
+			},
+			false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

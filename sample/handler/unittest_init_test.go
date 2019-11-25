@@ -5,10 +5,11 @@ import (
 	"os"
 	"testing"
 	"time"
-	"zeus-examples/sample/global"
 
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+
+	"zeus-examples/sample/global"
 )
 
 func TestMain(m *testing.M) {
