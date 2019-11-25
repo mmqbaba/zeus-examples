@@ -17,7 +17,7 @@ func TestMain(m *testing.M) {
 	log.SetFlags(3)
 
 	opt := service.Options{
-		LogLevel:      "info",
+		LogLevel:      "debug",
 		ConfEntryPath: "../../conf/zeus.json",
 	}
 	s := service.NewService(opt, container.GetContainer(), global.ServiceOpts...)
