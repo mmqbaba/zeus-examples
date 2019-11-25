@@ -2,31 +2,12 @@ package cache
 
 import (
 	"context"
-	"log"
-	"os"
-	"testing"
-	"time"
+    "testing"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+    zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
-	"zeus-examples/sample/global"
+    "zeus-examples/sample/global"
 )
-
-func TestMain(m *testing.M) {
-	opt := service.Options{
-		LogLevel:      "debug",
-		ConfEntryPath: "../../conf/zeus.json",
-	}
-	s := service.NewService(opt, container.GetContainer(), global.ServiceOpts...)
-	if err := s.Init(); err != nil {
-		log.Fatalf("Service s.Init exited with error: %s\n", err)
-	}
-	time.Sleep(1 * time.Second)
-	code := m.Run()
-	os.Exit(code)
-}
 
 func TestGetUser(t *testing.T) {
 	cnt := global.GetNG().GetContainer()
@@ -34,17 +15,40 @@ func TestGetUser(t *testing.T) {
 	logger := cnt.GetLogger()
 	ctx = zeusctx.LoggerToContext(ctx, logger.WithField("tag", "sample_reource_cache_getuser_test"))
 	rdc := cnt.GetRedisCli().GetCli()
-	ctx = zeusctx.RedisToContext(ctx, rdc)
-	id := "001"
-	expected := id + "@" + "mark"
-	info, err := GetUser(ctx, "001")
-	if err != nil {
-		t.Fatal(err)
+    ctx = zeusctx.RedisToContext(ctx, rdc)
+
+	type args struct {
+		ctx context.Context
+		id  string
 	}
-	if id+"@"+info != expected {
-		t.Errorf("handler returned unexpected info: got %v want %v",
-			id+"@"+info, expected)
-		return
+	tests := []struct {
+		name     string
+		args     args
+		wantInfo string
+		wantErr  bool
+	}{
+        // TODO: Add test cases.
+        {
+            "001",
+            args{
+                ctx,
+                "001",
+            },
+            "mark",
+            false,
+        },
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotInfo, err := GetUser(tt.args.ctx, tt.args.id)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetUser() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotInfo != tt.wantInfo {
+				t.Errorf("GetUser() = %v, want %v", gotInfo, tt.wantInfo)
+			}
+		})
 	}
 }
 
@@ -54,12 +58,34 @@ func TestSetUser(t *testing.T) {
 	logger := cnt.GetLogger()
 	ctx = zeusctx.LoggerToContext(ctx, logger.WithField("tag", "sample_reource_cache_setuser_test"))
 	rdc := cnt.GetRedisCli().GetCli()
-	ctx = zeusctx.RedisToContext(ctx, rdc)
-	id := "001"
-	info := "mark"
-	rdc.Del(id)
-	err := SetUser(ctx, id, info)
-	if err != nil {
-		t.Fatal(err)
+    ctx = zeusctx.RedisToContext(ctx, rdc)
+
+	type args struct {
+		ctx  context.Context
+		id   string
+		info string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+        // TODO: Add test cases.
+        {
+            "001",
+            args{
+                ctx,
+                "001",
+                "mark",
+            },
+            false,
+        },
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := SetUser(tt.args.ctx, tt.args.id, tt.args.info); (err != nil) != tt.wantErr {
+				t.Errorf("SetUser() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
 	}
 }

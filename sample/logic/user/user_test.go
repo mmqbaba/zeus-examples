@@ -2,31 +2,12 @@ package user
 
 import (
 	"context"
-	"log"
-	"os"
 	"testing"
-	"time"
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
 
 	"zeus-examples/sample/global"
 )
-
-func TestMain(m *testing.M) {
-	opt := service.Options{
-		LogLevel:      "debug",
-		ConfEntryPath: "../../conf/zeus.json",
-	}
-	s := service.NewService(opt, container.GetContainer(), global.ServiceOpts...)
-	if err := s.Init(); err != nil {
-		log.Fatalf("Service s.Init exited with error: %s\n", err)
-	}
-	time.Sleep(1 * time.Second)
-	code := m.Run()
-	os.Exit(code)
-}
 
 func TestGetInfoEx(t *testing.T) {
 	cnt := global.GetNG().GetContainer()
@@ -36,15 +17,37 @@ func TestGetInfoEx(t *testing.T) {
 	rdc := cnt.GetRedisCli().GetCli()
 	ctx = zeusctx.RedisToContext(ctx, rdc)
 	ctx = zeusctx.GMClientToContext(ctx, cnt.GetGoMicroClient())
-	id := "001"
-	expected := id + "@" + "mark"
-	info, err := GetInfoEx(ctx, "001")
-	if err != nil {
-		t.Fatal(err)
+	type args struct {
+		ctx context.Context
+		id  string
 	}
-	if id+"@"+info != expected {
-		t.Errorf("handler returned unexpected info: got %v want %v",
-			id+"@"+info, expected)
-		return
+	tests := []struct {
+		name     string
+		args     args
+		wantInfo string
+		wantErr  bool
+	}{
+		// TODO: Add test cases.
+		{
+			"001",
+			args{
+				ctx,
+				"001",
+			},
+			"mark",
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotInfo, err := GetInfoEx(tt.args.ctx, tt.args.id)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetInfoEx() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotInfo != tt.wantInfo {
+				t.Errorf("GetInfoEx() = %v, want %v", gotInfo, tt.wantInfo)
+			}
+		})
 	}
 }

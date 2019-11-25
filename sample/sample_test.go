@@ -21,14 +21,12 @@ import (
 	proto "zeus-examples/sample/proto/samplepb"
 )
 
-func init() {
-	log.SetPrefix("[zeus] ")
-	log.SetFlags(3)
-}
-
 func TestMain(m *testing.M) {
+	log.SetPrefix("[zeus_unittest] ")
+	log.SetFlags(3)
+
 	opt := service.Options{
-		LogLevel:      "error",
+		LogLevel:      "info",
 		ConfEntryPath: "./conf/zeus.json",
 	}
 	s := service.NewService(opt, container.GetContainer(), global.ServiceOpts...)
