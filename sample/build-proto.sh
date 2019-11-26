@@ -7,11 +7,15 @@ pbout=${service}pb
 
 test -f ../proto/${service}.proto || exit 1
 # gen-zeus
-gen-zeus --proto ../proto/${service}.proto --dest ../ 
+gen-zeus --proto ../proto/${service}.proto --dest ../
 if [ $? -eq 1 ]; then
     echo "gen-zeus failed"
     exit 1
 fi
+
+# 生成handler单元测试模板
+gotests -w -all ./handler/
+
 mkdir -p $projectpath/proto/${service}pb
 cd $projectpath/proto
 
