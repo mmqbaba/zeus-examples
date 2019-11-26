@@ -3,6 +3,7 @@
 *.exe
 *.exe~
 *.log
+*.log.pos
 *.logger.Log
 go.sum
 ~$
