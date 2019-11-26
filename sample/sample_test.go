@@ -63,21 +63,36 @@ func checkErrCode(t *testing.T, expected errors.ErrorCode, ret *errors.Error) {
 	}
 }
 
+func checkRsp(t *testing.T, expected, actual interface{}) {
+	r, err := utils.Marshal(actual)
+	if err != nil {
+		t.Fatal(err)
+	}
+	w, err := utils.Marshal(expected)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(r) != string(w) {
+		t.Errorf("Expected response rsp %v. Got %v\n",
+			expected, actual)
+	}
+}
+
 func TestHTTP(t *testing.T) {
 	// 路径带前缀'/api'
-	t.Run("/api/v1/hello", sayHello("/api/v1/hello"))
-	t.Run("/api/v1/pingpong", pingPong("/api/v1/pingpong"))
+	runSayHello(t, "/api/v1/hello")
+	runPingPong(t, "/api/v1/pingpong")
 }
 func TestGoMicroGrpcGateway(t *testing.T) {
 	// 路径不带前缀'/api'
-	t.Run("/v1/hello", sayHello("/v1/hello"))
-	t.Run("/v1/pingpong", pingPong("/v1/pingpong"))
+	runSayHello(t, "/v1/hello")
+	runPingPong(t, "/v1/pingpong")
 }
 
-func sayHello(url string) func(t *testing.T) {
-	return func(t *testing.T) {
+func runSayHello(t *testing.T, url string) {
+	t.Run(url, func(t *testing.T) {
 		type args struct {
-			req *proto.Request
+			req interface{}
 			ret *errors.Error
 		}
 		tests := []struct {
@@ -85,7 +100,7 @@ func sayHello(url string) func(t *testing.T) {
 			args           args
 			wantStatusCode int
 			wantErrCode    errors.ErrorCode
-			wantRsp        *proto.Reply
+			wantRsp        interface{}
 		}{
 			// TODO: Add test cases.
 			{
@@ -133,19 +148,16 @@ func sayHello(url string) func(t *testing.T) {
 					t.Fatal(err)
 				}
 				checkErrCode(t, tt.wantErrCode, tt.args.ret)
-				if rsp.Message != tt.wantRsp.Message {
-					t.Errorf("Expected response rsp %v. Got %v\n",
-						tt.wantRsp, rsp)
-				}
+				checkRsp(t, tt.wantRsp, rsp)
 			})
 		}
-	}
+	})
 }
 
-func pingPong(url string) func(t *testing.T) {
-	return func(t *testing.T) {
+func runPingPong(t *testing.T, url string) {
+	t.Run(url, func(t *testing.T) {
 		type args struct {
-			req *proto.PingRequest
+			req interface{}
 			ret *errors.Error
 		}
 		tests := []struct {
@@ -153,7 +165,7 @@ func pingPong(url string) func(t *testing.T) {
 			args           args
 			wantStatusCode int
 			wantErrCode    errors.ErrorCode
-			wantRsp        *proto.PongReply
+			wantRsp        interface{}
 		}{
 			// TODO: Add test cases.
 			{
@@ -188,11 +200,8 @@ func pingPong(url string) func(t *testing.T) {
 					t.Fatal(err)
 				}
 				checkErrCode(t, tt.wantErrCode, tt.args.ret)
-				if rsp.Pong != tt.wantRsp.Pong {
-					t.Errorf("Expected response rsp %v. Got %v\n",
-						tt.wantRsp, rsp)
-				}
+				checkRsp(t, tt.wantRsp, rsp)
 			})
 		}
-	}
+	})
 }
