@@ -12,13 +12,16 @@ if [ $? -eq 1 ]; then
     echo "gen-zeus failed"
     exit 1
 fi
+
+# 生成handler单元测试模板
+gotests -w -all ./handler/
+
 mkdir -p $projectpath/proto/${service}pb
 cd $projectpath/proto
 
 # gen-gomicro gen-grpc-gateway gen-validator swagger
 
 protoc -I../../proto \
-   -I../../../zeus/proto/third_party \
    -I$GOPATH/src \
    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
    -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway \
