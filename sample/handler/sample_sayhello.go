@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 
+	"github.com/go-redis/redis"
 	"go.mongodb.org/mongo-driver/bson"
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
@@ -21,6 +22,19 @@ func (h *Sample) SayHello(ctx context.Context, req *gomicro.Request, rsp *gomicr
 	// 	return
 	// }
 	// rsp.Message = "hello world, " + info + "."
+
+	rdc, err := zeusctx.ExtractRedis(ctx)
+	if err != nil {
+		return
+	}
+	r := rdc.Get("001")
+	if err = r.Err(); err != nil && err != redis.Nil {
+		return
+	} else {
+		err = nil
+	}
+
+	logger.Debug(r.Val())
 
 	mgoc, err := zeusctx.ExtractMongo(ctx)
 	if err != nil {
