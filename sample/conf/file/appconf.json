@@ -1,0 +1,13 @@
+{
+    "go_micro": {
+        "service_name": "hello",
+        "registry_plugin_type": "etcd",
+        "registry_addrs": ["127.0.0.1:2379"]
+    },
+    "mongodb": {
+        "enable": false
+    },
+    "redis": {
+        "enable": false
+    }
+}

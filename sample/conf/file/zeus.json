@@ -1,0 +1,8 @@
+{
+    "engine_type": "file",
+    "config_path": "./conf/file/appconf.json",
+    "config_format": "json",
+	"endpoints": ["127.0.0.1:2379"],
+	"username": "root",
+	"password": "123456"
+}
