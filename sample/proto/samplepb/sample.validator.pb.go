@@ -7,6 +7,7 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/golang/protobuf/ptypes/any"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	_ "github.com/mwitkow/go-proto-validators"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
@@ -25,6 +26,7 @@ func (this *Request) Validate() error {
 	if !(this.Age < 27) {
 		return github_com_mwitkow_go_proto_validators.FieldError("Age", fmt.Errorf(`value '%v' must be less than '27'`, this.Age))
 	}
+	// Validation of proto3 map<> fields is unsupported.
 	return nil
 }
 func (this *Reply) Validate() error {
@@ -34,6 +36,11 @@ func (this *PingRequest) Validate() error {
 	return nil
 }
 func (this *PongReply) Validate() error {
+	if this.Data != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Data); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Data", err)
+		}
+	}
 	return nil
 }
 func (this *UploadReq) Validate() error {

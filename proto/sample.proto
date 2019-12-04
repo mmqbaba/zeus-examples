@@ -2,6 +2,7 @@ syntax="proto3";
 
 package sample;
 
+import "google/protobuf/any.proto";
 import "google/api/annotations.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "protoc-gen-swagger/options/annotations.proto";
@@ -37,6 +38,7 @@ message Request{
     string name = 1;
     // @inject_tag: form:"age" binding:"required,gt=20,lt=27"
     int32 age = 2 [(validator.field) = {int_gt: 20, int_lt: 27}];
+    map<string, string> meta_data = 3;
 }
 
 message Reply{
@@ -49,6 +51,7 @@ message PingRequest{
 
 message PongReply{
     string pong = 1;
+    google.protobuf.Any data = 2;
 }
 
 message UploadReq {

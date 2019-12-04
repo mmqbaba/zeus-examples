@@ -41,7 +41,7 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	})
 	groups := map[string]*gin.RouterGroup{
 		"default": prefixGroup,
-		"sample":   sampleGroup,
+		"sample":  sampleGroup,
 	}
 	////
 
@@ -49,6 +49,8 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	// 这里可根据实际需求，为每条路由添加handlerfunc和设置路由组
 	////
 	customRouteSampleHdlr := zeusmwhttp.CustomRouteFn(func(routes map[zeusmwhttp.RouteLink]*zeusmwhttp.Route) {
+		Route_SampleHdlr_PingPong.AddMW(routes, zeusmwhttp.TagRawRsp(true))
+
 		//Route_SampleHdlr_Demo.AddMW(routes, func(c *gin.Context) {
 		//	zeusmwhttp.ExtractLogger(c).Debug("customRouteSampleHdlr: ", Route_SampleHdlr_PingPong)
 		//	c.Next()
@@ -61,4 +63,3 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	registerRoutesForSampleHandler(groups, customRouteSampleHdlr)
 	return g, nil
 }
-
