@@ -4,6 +4,6 @@ package global
 
 func init() {
 	// ServiceOpts = append(ServiceOpts, service.WithProcessChangeFnOption(func(event interface{}) {
-	// 	// TOOD:
+	// 	// TODO:
 	// }))
 }
