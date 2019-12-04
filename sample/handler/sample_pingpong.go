@@ -8,13 +8,20 @@ import (
 	"github.com/golang/protobuf/ptypes"
 
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeuserr "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
 
+	"zeus-examples/errdef"
 	gomicro "zeus-examples/sample/proto/samplepb"
 )
 
 func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *gomicro.PongReply) (err error) {
 	logger := zeusctx.ExtractLogger(ctx)
 	logger.Debug("PingPong")
+
+	// 公共错误码
+	zeuserr.ECodeRedisErr.ParseErr("")
+	// 本项目错误码
+	errdef.ECodeSampleInvalidParams.ParseErr("")
 
 	// pb := &gomicro.Request{
 	// 	MetaData: map[string]string{"email": "email", "home_addr": "home_addr"},

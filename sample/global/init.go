@@ -43,4 +43,3 @@ func GetConfig() (conf *config.AppConf) {
 	conf = c.Get()
 	return
 }
-
