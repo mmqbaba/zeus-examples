@@ -3,7 +3,7 @@ package handler
 import (
 	"context"
 
-	// proto "github.com/golang/protobuf/proto"
+	proto "github.com/golang/protobuf/proto"
 	// any "github.com/golang/protobuf/ptypes/any"
 	"github.com/golang/protobuf/ptypes"
 
@@ -24,7 +24,8 @@ func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *go
 	// data.Value, _ = proto.Marshal(pb)
 	// rsp.Data = data
 
-	pb := &gomicro.Request{
+	var pb proto.Message
+	pb = &gomicro.Request{
 		MetaData: map[string]string{"email": "email", "home_addr": "home_addr"},
 	}
 	rsp.Data, err = ptypes.MarshalAny(pb)
