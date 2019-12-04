@@ -8,6 +8,7 @@ import (
 	math "math"
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/golang/protobuf/ptypes/any"
+	_ "github.com/golang/protobuf/ptypes/struct"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	_ "github.com/mwitkow/go-proto-validators"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
@@ -39,6 +40,11 @@ func (this *PongReply) Validate() error {
 	if this.Data != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Data); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Data", err)
+		}
+	}
+	if this.MetaData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.MetaData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("MetaData", err)
 		}
 	}
 	return nil

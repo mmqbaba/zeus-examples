@@ -3,6 +3,7 @@ syntax="proto3";
 package sample;
 
 import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
 import "google/api/annotations.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "protoc-gen-swagger/options/annotations.proto";
@@ -52,6 +53,8 @@ message PingRequest{
 message PongReply{
     string pong = 1;
     google.protobuf.Any data = 2;
+    google.protobuf.Struct meta_data = 3;
+
 }
 
 message UploadReq {
