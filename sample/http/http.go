@@ -53,14 +53,23 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	////
 	customRouteSampleHdlr := zeusmwhttp.CustomRouteFn(func(routes map[zeusmwhttp.RouteLink]*zeusmwhttp.Route) {
 		Route_SampleHdlr_PingPong.AddMW(routes, zeusmwhttp.TagRawRsp(true))
-
-		Route_SampleHdlr_SayHello.AddMW(routes, func(c *gin.Context) {
-			writer := &customerResponseWriter{
-				ResponseWriter: c.Writer,
-				c:              c,
+		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteErrFn(func(c *gin.Context, err error) {
+			if err != nil {
+				e, ok := err.(*zeuserr.Error)
+				if ok && e != nil {
+					if e.ErrCode == zeuserr.ECodeInvalidParams {
+						// errTmp := zeuserr.New(errdef.ECodeSampleInvalidParams, e.ErrMsg, e.Cause)
+						// errTmp.ServiceID = e.ServiceID
+						// errTmp.TracerID = e.TracerID
+						// e = errTmp
+						// e.Write(c.Writer)
+						c.JSON(http.StatusBadRequest, gin.H{"ecode": errdef.ECodeSampleInvalidParams, "msg": e.ErrMsg})
+						return
+					}
+				}
 			}
-			c.Writer = writer
-		})
+			c.JSON(http.StatusOK, gin.H{"ecode": 0, "msg": "ok"})
+		}))
 
 		//Route_SampleHdlr_Demo.AddMW(routes, func(c *gin.Context) {
 		//	zeusmwhttp.ExtractLogger(c).Debug("customRouteSampleHdlr: ", Route_SampleHdlr_PingPong)
@@ -73,37 +82,4 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	// register routes for Samplehandler
 	registerRoutesForSampleHandler(groups, customRouteSampleHdlr)
 	return g, nil
-}
-
-type customerResponseWriter struct {
-	gin.ResponseWriter
-	c *gin.Context
-}
-
-func (cw *customerResponseWriter) Write(b []byte) (int, error) {
-	err, exists := cw.c.Get("error")
-	if exists && err != nil {
-		e, ok := err.(*zeuserr.Error)
-		if ok && e != nil {
-			if e.ErrCode == zeuserr.ECodeInvalidParams {
-				errTmp := zeuserr.New(errdef.ECodeSampleInvalidParams, e.ErrMsg, e.Cause)
-				errTmp.ServiceID = e.ServiceID
-				errTmp.TracerID = e.TracerID
-				e = errTmp
-			}
-			return 0, e.Write(cw.ResponseWriter)
-		}
-	}
-	return cw.ResponseWriter.Write(b)
-}
-
-func (cw *customerResponseWriter) WriteHeader(code int) {
-	err, exists := cw.c.Get("error")
-	if exists && err != nil {
-		e, ok := err.(*zeuserr.Error)
-		if ok && e != nil && e.ErrCode == zeuserr.ECodeInvalidParams {
-			return
-		}
-	}
-	cw.ResponseWriter.WriteHeader(code)
 }
