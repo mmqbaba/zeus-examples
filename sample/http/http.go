@@ -68,7 +68,10 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 					}
 				}
 			}
-			c.JSON(http.StatusOK, gin.H{"ecode": 0, "msg": "ok"})
+			c.JSON(http.StatusOK, gin.H{"ecode": zeuserr.ECodeSuccessed, "msg": err.Error()})
+		}))
+		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteResponseFn(func(c *gin.Context, rsp interface{}) {
+			c.JSON(http.StatusOK, gin.H{"ecode": zeuserr.ECodeSuccessed, "data": rsp})
 		}))
 
 		//Route_SampleHdlr_Demo.AddMW(routes, func(c *gin.Context) {
