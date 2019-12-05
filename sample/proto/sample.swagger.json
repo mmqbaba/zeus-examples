@@ -138,6 +138,10 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "sex_type": {
+          "type": "boolean",
+          "format": "boolean"
         }
       }
     },

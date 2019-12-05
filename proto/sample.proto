@@ -40,6 +40,7 @@ message Request{
     // @inject_tag: form:"age" binding:"required,gt=20,lt=27"
     int32 age = 2 [(validator.field) = {int_gt: 20, int_lt: 27}];
     map<string, string> meta_data = 3;
+    bool sex_type = 4;
 }
 
 message Reply{

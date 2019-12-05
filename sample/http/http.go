@@ -8,7 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
+	zeuserr "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
 	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
+
+	"zeus-examples/errdef"
 )
 
 func init() {
@@ -51,6 +54,14 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	customRouteSampleHdlr := zeusmwhttp.CustomRouteFn(func(routes map[zeusmwhttp.RouteLink]*zeusmwhttp.Route) {
 		Route_SampleHdlr_PingPong.AddMW(routes, zeusmwhttp.TagRawRsp(true))
 
+		Route_SampleHdlr_SayHello.AddMW(routes, func(c *gin.Context) {
+			writer := &customerResponseWriter{
+				ResponseWriter: c.Writer,
+				c:              c,
+			}
+			c.Writer = writer
+		})
+
 		//Route_SampleHdlr_Demo.AddMW(routes, func(c *gin.Context) {
 		//	zeusmwhttp.ExtractLogger(c).Debug("customRouteSampleHdlr: ", Route_SampleHdlr_PingPong)
 		//	c.Next()
@@ -62,4 +73,37 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	// register routes for Samplehandler
 	registerRoutesForSampleHandler(groups, customRouteSampleHdlr)
 	return g, nil
+}
+
+type customerResponseWriter struct {
+	gin.ResponseWriter
+	c *gin.Context
+}
+
+func (cw *customerResponseWriter) Write(b []byte) (int, error) {
+	err, exists := cw.c.Get("error")
+	if exists && err != nil {
+		e, ok := err.(*zeuserr.Error)
+		if ok && e != nil {
+			if e.ErrCode == zeuserr.ECodeInvalidParams {
+				errTmp := zeuserr.New(errdef.ECodeSampleInvalidParams, e.ErrMsg, e.Cause)
+				errTmp.ServiceID = e.ServiceID
+				errTmp.TracerID = e.TracerID
+				e = errTmp
+			}
+			return 0, e.Write(cw.ResponseWriter)
+		}
+	}
+	return cw.ResponseWriter.Write(b)
+}
+
+func (cw *customerResponseWriter) WriteHeader(code int) {
+	err, exists := cw.c.Get("error")
+	if exists && err != nil {
+		e, ok := err.(*zeuserr.Error)
+		if ok && e != nil && e.ErrCode == zeuserr.ECodeInvalidParams {
+			return
+		}
+	}
+	cw.ResponseWriter.WriteHeader(code)
 }
