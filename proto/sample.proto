@@ -49,13 +49,16 @@ message Reply{
 
 message PingRequest{
     string ping = 1;
+    google.protobuf.Struct st_meta_data = 2;
+    google.protobuf.Struct st_custom_data = 3;
+    // google.protobuf.Any any_data = 4;
 }
 
 message PongReply{
     string pong = 1;
-    google.protobuf.Any data = 2;
-    google.protobuf.Struct meta_data = 3;
-
+    google.protobuf.Struct st_meta_data = 2;
+    google.protobuf.Struct st_custom_data = 3;
+    google.protobuf.Any any_data = 4;
 }
 
 message UploadReq {

@@ -26,14 +26,16 @@ func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *go
 	errdef.ECodeSampleInvalidParams.ParseErr("")
 
 	// to any
-	rsp.Data, err = toAny()
+	rsp.AnyData, err = toAny()
 	if err != nil {
 		logger.Error(err)
 		return
 	}
 
 	// to struct
-	rsp.MetaData = toStruct()
+	rsp.StCustomData = toStruct()
+
+	rsp.StMetaData = zeusutilspb.ToStruct(zeusutilspb.DecodeToMap(req.StMetaData))
 
 	rsp.Pong = "pong"
 	return

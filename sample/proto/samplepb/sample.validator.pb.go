@@ -7,11 +7,11 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
-	_ "google.golang.org/genproto/googleapis/api/annotations"
-	_ "github.com/mwitkow/go-proto-validators"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	_ "github.com/golang/protobuf/ptypes/any"
 	_ "github.com/golang/protobuf/ptypes/struct"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -34,17 +34,32 @@ func (this *Reply) Validate() error {
 	return nil
 }
 func (this *PingRequest) Validate() error {
+	if this.StMetaData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StMetaData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("StMetaData", err)
+		}
+	}
+	if this.StCustomData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StCustomData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("StCustomData", err)
+		}
+	}
 	return nil
 }
 func (this *PongReply) Validate() error {
-	if this.Data != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Data); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Data", err)
+	if this.StMetaData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StMetaData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("StMetaData", err)
 		}
 	}
-	if this.MetaData != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.MetaData); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("MetaData", err)
+	if this.StCustomData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StCustomData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("StCustomData", err)
+		}
+	}
+	if this.AnyData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.AnyData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("AnyData", err)
 		}
 	}
 	return nil

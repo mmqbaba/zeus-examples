@@ -53,6 +53,8 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	////
 	customRouteSampleHdlr := zeusmwhttp.CustomRouteFn(func(routes map[zeusmwhttp.RouteLink]*zeusmwhttp.Route) {
 		Route_SampleHdlr_PingPong.AddMW(routes, zeusmwhttp.TagRawRsp(true))
+		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.UseGinBindValidateForPB(false))
+		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.DisablePBValidate(false))
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteErrFn(func(c *gin.Context, err error) {
 			if err != nil {
 				e, ok := err.(*zeuserr.Error)
