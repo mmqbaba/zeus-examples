@@ -28,7 +28,6 @@ func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *go
 		logger.Error(err)
 		return
 	}
-	logger.Info("========================")
 
 	// 公共错误码
 	zeuserr.ECodeRedisErr.ParseErr("")

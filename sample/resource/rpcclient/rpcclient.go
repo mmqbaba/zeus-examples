@@ -65,7 +65,7 @@ func NewHelloService(ctx context.Context) (hellodemo.HelloDemoService, error) {
 	if err != nil {
 		return nil, err
 	}
-	helloSrv.name = "hello"
+	helloSrv.name = "hellodemo"
 	helloSrv.client = hellodemo.NewHelloDemoService(helloSrv.name, cli)
 	return helloSrv.client, nil
 }
