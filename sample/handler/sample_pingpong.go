@@ -13,12 +13,22 @@ import (
 	zeusutilspb "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/utils/protobuf"
 
 	"zeus-examples/errdef"
+	hellodemopb "zeus-examples/hellodemo/proto/hellodemopb"
 	gomicro "zeus-examples/sample/proto/samplepb"
+	rpc "zeus-examples/sample/resource/rpcclient"
 )
 
 func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *gomicro.PongReply) (err error) {
 	logger := zeusctx.ExtractLogger(ctx)
 	logger.Debug("PingPong")
+
+	helloSrv, _ := rpc.NewHelloService(ctx)
+	_, err = helloSrv.SayHello(ctx, &hellodemopb.HelloRequest{Age: 21})
+	if err != nil {
+		logger.Error(err)
+		return
+	}
+	logger.Info("========================")
 
 	// 公共错误码
 	zeuserr.ECodeRedisErr.ParseErr("")

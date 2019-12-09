@@ -7,6 +7,7 @@ import (
 	"runtime"
 	"strconv"
 
+	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
 
@@ -27,7 +28,7 @@ func main() {
 	log.Printf("Golang Version : %s\n", GoVersion)
 	log.Println("--------------------------------")
 	fmt.Print("\n")
-	
+
 	args := os.Args
 	if len(args) == 2 && (args[1] == "--version" || args[1] == "-version" || args[1] == "-v") {
 		return
@@ -45,6 +46,14 @@ func main() {
 	log.Printf("[GOMAXPROCS] %v\n", num)
 	curr := runtime.GOMAXPROCS(num)
 	log.Printf("[CURRENT GOMAXPROCS] %v\n", curr)
+
+	loadEngineFnOpt := service.WithLoadEngineFnOption(func(ng engine.Engine) {
+		log.Println("WithLoadEngineFnOption: SetNG success.")
+		global.SetNG(ng)
+		log.Println("===============load", ng.GetContainer().GetGoMicroClient())
+	})
+	global.ServiceOpts = append(global.ServiceOpts, loadEngineFnOpt)
+
 	log.Println("service run ...")
 	if err := service.Run(container.GetContainer(), nil, global.ServiceOpts...); err != nil {
 		log.Printf("Service exited with error: %s\n", err)
@@ -53,4 +62,3 @@ func main() {
 		log.Println("Service exited gracefully")
 	}
 }
-
