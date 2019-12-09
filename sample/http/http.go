@@ -8,10 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
-	zeuserr "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
+	// zeuserr "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
 	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
 
-	"zeus-examples/errdef"
+	// "zeus-examples/errdef"
 )
 
 func init() {
@@ -52,29 +52,24 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	// 这里可根据实际需求，为每条路由添加handlerfunc和设置路由组
 	////
 	customRouteSampleHdlr := zeusmwhttp.CustomRouteFn(func(routes map[zeusmwhttp.RouteLink]*zeusmwhttp.Route) {
-		Route_SampleHdlr_PingPong.AddMW(routes, zeusmwhttp.TagRawRsp(true))
+		Route_SampleHdlr_PingPong.AddMW(routes, zeusmwhttp.TagRawRsp(false))
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.UseGinBindValidateForPB(false))
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.DisablePBValidate(false))
-		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteErrFn(func(c *gin.Context, err error) {
-			if err != nil {
-				e, ok := err.(*zeuserr.Error)
-				if ok && e != nil {
-					if e.ErrCode == zeuserr.ECodeInvalidParams {
-						// errTmp := zeuserr.New(errdef.ECodeSampleInvalidParams, e.ErrMsg, e.Cause)
-						// errTmp.ServiceID = e.ServiceID
-						// errTmp.TracerID = e.TracerID
-						// e = errTmp
-						// e.Write(c.Writer)
-						c.JSON(http.StatusBadRequest, gin.H{"ecode": errdef.ECodeSampleInvalidParams, "msg": e.ErrMsg})
-						return
-					}
-				}
-			}
-			c.JSON(http.StatusOK, gin.H{"ecode": zeuserr.ECodeSuccessed, "msg": err.Error()})
-		}))
-		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteResponseFn(func(c *gin.Context, rsp interface{}) {
-			c.JSON(http.StatusOK, gin.H{"ecode": zeuserr.ECodeSuccessed, "data": rsp})
-		}))
+		// Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteErrFn(func(c *gin.Context, err error) {
+		// 	if err != nil {
+		// 		e, ok := err.(*zeuserr.Error)
+		// 		if ok && e != nil {
+		// 			if e.ErrCode == zeuserr.ECodeInvalidParams {
+		// 				c.JSON(http.StatusBadRequest, gin.H{"ecode": errdef.ECodeSampleInvalidParams, "msg": e.ErrMsg})
+		// 				return
+		// 			}
+		// 		}
+		// 	}
+		// 	c.JSON(http.StatusOK, gin.H{"ecode": zeuserr.ECodeSuccessed, "msg": err.Error()})
+		// }))
+		// Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteResponseFn(func(c *gin.Context, rsp interface{}) {
+		// 	c.JSON(http.StatusOK, gin.H{"ecode": zeuserr.ECodeSuccessed, "data": rsp})
+		// }))
 
 		//Route_SampleHdlr_Demo.AddMW(routes, func(c *gin.Context) {
 		//	zeusmwhttp.ExtractLogger(c).Debug("customRouteSampleHdlr: ", Route_SampleHdlr_PingPong)
