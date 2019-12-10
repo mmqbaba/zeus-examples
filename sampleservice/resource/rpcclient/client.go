@@ -11,32 +11,28 @@ import (
 	"zeus-examples/sampleservice/proto/hello"
 )
 
-var cli client.Client
-
-type helloService struct {
-	mux    sync.RWMutex
-	name   string
-	client hello.HelloService
+type HelloService struct {
+	hello.HelloService
+	once sync.Once
+	name string
 }
 
 // HelloSrv
-var helloSrv helloService
+var helloSrv HelloService
 
-func GetHelloService(ctx context.Context) (hello.HelloService, error) {
-	helloSrv.mux.RLock()
-	if helloSrv.client != nil {
-		defer helloSrv.mux.RUnlock()
-		return helloSrv.client, nil
-	}
-	helloSrv.mux.RUnlock()
-
-	helloSrv.mux.Lock()
-	defer helloSrv.mux.Unlock()
-	cli, err := zeusctx.ExtractGMClient(ctx)
+func NewHelloService(ctx context.Context) (hello.HelloService, error) {
+	var err error
+	helloSrv.once.Do(func() {
+		var cli client.Client
+		cli, err = zeusctx.ExtractGMClient(ctx)
+		if err != nil {
+			return
+		}
+		helloSrv.name = "hello"
+		helloSrv.HelloService = hello.NewHelloService(helloSrv.name, cli)
+	})
 	if err != nil {
 		return nil, err
 	}
-	helloSrv.name = "hello"
-	helloSrv.client = hello.NewHelloService(helloSrv.name, cli)
-	return helloSrv.client, nil
+	return &helloSrv, nil
 }

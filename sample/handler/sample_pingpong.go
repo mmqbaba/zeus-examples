@@ -14,15 +14,15 @@ import (
 
 	"zeus-examples/errdef"
 	hellodemopb "zeus-examples/hellodemo/proto/hellodemopb"
+	hellodemorpc "zeus-examples/hellodemo/resource/rpcclient"
 	gomicro "zeus-examples/sample/proto/samplepb"
-	rpc "zeus-examples/sample/resource/rpcclient"
 )
 
 func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *gomicro.PongReply) (err error) {
 	logger := zeusctx.ExtractLogger(ctx)
 	logger.Debug("PingPong")
 
-	helloSrv, _ := rpc.NewHelloService(ctx)
+	helloSrv, _ := hellodemorpc.NewHelloDemoService(ctx)
 	_, err = helloSrv.SayHello(ctx, &hellodemopb.HelloRequest{Age: 21})
 	if err != nil {
 		logger.Error(err)

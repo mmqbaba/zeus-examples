@@ -1,4 +1,5 @@
 package rpcclient
+
 import (
 	"context"
 	"sync"
@@ -10,33 +11,28 @@ import (
 	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
 )
 
-var cli client.Client
-
 type HelloDemoService struct {
-	mux    sync.RWMutex
-	name   string
-	client gomicro.HelloDemoService
+	gomicro.HelloDemoService
+	once sync.Once
+	name string
 }
 
-// hellodemoSrv
+// HelloDemoSrv
 var hellodemoSrv HelloDemoService
 
 func NewHelloDemoService(ctx context.Context) (gomicro.HelloDemoService, error) {
-	hellodemoSrv.mux.RLock()
-	if hellodemoSrv.client != nil {
-		defer hellodemoSrv.mux.RUnlock()
-		return hellodemoSrv.client, nil
-	}
-	hellodemoSrv.mux.RUnlock()
-
-	hellodemoSrv.mux.Lock()
-	defer hellodemoSrv.mux.Unlock()
-	cli, err := zeusctx.ExtractGMClient(ctx)
+	var err error
+	hellodemoSrv.once.Do(func() {
+		var cli client.Client
+		cli, err = zeusctx.ExtractGMClient(ctx)
+		if err != nil {
+			return
+		}
+		hellodemoSrv.name = "hellodemo"
+		hellodemoSrv.HelloDemoService = gomicro.NewHelloDemoService(hellodemoSrv.name, cli)
+	})
 	if err != nil {
 		return nil, err
 	}
-	hellodemoSrv.name = "hellodemo"
-	hellodemoSrv.client = gomicro.NewHelloDemoService(hellodemoSrv.name, cli)
-	return hellodemoSrv.client, nil
+	return &hellodemoSrv, nil
 }
-
