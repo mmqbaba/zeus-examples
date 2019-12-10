@@ -16,10 +16,10 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 
-enum HelloDemoErrCode {
-    ErrCodeOK = 0;
-    ErrCodeLogicBegin = 40001; // 错误码起始
-}
+// enum HelloDemoErrCode {
+//     ErrCodeOK = 0;
+//     ErrCodeLogicBegin = 40001; // 错误码起始
+// }
 
 
 message HelloRequest{

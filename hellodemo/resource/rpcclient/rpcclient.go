@@ -11,14 +11,13 @@ import (
 	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
 )
 
+var hellodemoSrv HelloDemoService
+
 type HelloDemoService struct {
 	gomicro.HelloDemoService
 	once sync.Once
 	name string
 }
-
-// HelloDemoSrv
-var hellodemoSrv HelloDemoService
 
 func NewHelloDemoService(ctx context.Context) (gomicro.HelloDemoService, error) {
 	var err error

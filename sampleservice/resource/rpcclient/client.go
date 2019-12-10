@@ -17,7 +17,6 @@ type HelloService struct {
 	name string
 }
 
-// HelloSrv
 var helloSrv HelloService
 
 func NewHelloService(ctx context.Context) (hello.HelloService, error) {

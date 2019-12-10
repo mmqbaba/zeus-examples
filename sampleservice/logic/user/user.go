@@ -10,7 +10,7 @@ import (
 
 	"zeus-examples/sampleservice/proto/hello"
 	"zeus-examples/sampleservice/resource/cache"
-	"zeus-examples/sampleservice/resource/rpcclient"
+	rpc "zeus-examples/sampleservice/resource/rpcclient"
 )
 
 func GetInfo(ctx context.Context, id string) (info string, err error) {
@@ -18,9 +18,9 @@ func GetInfo(ctx context.Context, id string) (info string, err error) {
 	if err != nil {
 		return
 	}
-	cli, err := rpc.GetHelloService(ctx)
+	cli, err := rpc.NewHelloService(ctx)
 	if err != nil {
-		zeusctx.ExtractLogger(ctx).Error("rpc.GetHelloService err:", err)
+		zeusctx.ExtractLogger(ctx).Error("rpc.NewHelloService err:", err)
 		return
 	}
 	rsp, err := cli.PingPong(ctx, &hello.PingRequest{Ping: "ping"}, client.WithCallWrapper(func(c client.CallFunc) client.CallFunc {

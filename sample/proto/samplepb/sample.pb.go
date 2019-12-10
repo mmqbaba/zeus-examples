@@ -30,11 +30,11 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Request struct {
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name"`
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// @inject_tag: form:"age" binding:"required,gt=20,lt=27"
-	Age                  int32             `protobuf:"varint,2,opt,name=age,proto3" json:"age" form:"age" binding:"required,gt=20,lt=27"`
-	MetaData             map[string]string `protobuf:"bytes,3,rep,name=meta_data,json=metaData,proto3" json:"meta_data" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	SexType              bool              `protobuf:"varint,4,opt,name=sex_type,json=sexType,proto3" json:"sex_type"`
+	Age                  int32             `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty" form:"age" binding:"required,gt=20,lt=27"`
+	MetaData             map[string]string `protobuf:"bytes,3,rep,name=meta_data,json=metaData,proto3" json:"meta_data,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	SexType              bool              `protobuf:"varint,4,opt,name=sex_type,json=sexType,proto3" json:"sex_type,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
@@ -94,7 +94,7 @@ func (m *Request) GetSexType() bool {
 }
 
 type Reply struct {
-	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
+	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -133,9 +133,9 @@ func (m *Reply) GetMessage() string {
 }
 
 type PingRequest struct {
-	Ping                 string          `protobuf:"bytes,1,opt,name=ping,proto3" json:"ping"`
-	StMetaData           *_struct.Struct `protobuf:"bytes,2,opt,name=st_meta_data,json=stMetaData,proto3" json:"st_meta_data"`
-	StCustomData         *_struct.Struct `protobuf:"bytes,3,opt,name=st_custom_data,json=stCustomData,proto3" json:"st_custom_data"`
+	Ping                 string          `protobuf:"bytes,1,opt,name=ping,proto3" json:"ping,omitempty"`
+	StMetaData           *_struct.Struct `protobuf:"bytes,2,opt,name=st_meta_data,json=stMetaData,proto3" json:"st_meta_data,omitempty"`
+	StCustomData         *_struct.Struct `protobuf:"bytes,3,opt,name=st_custom_data,json=stCustomData,proto3" json:"st_custom_data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
@@ -188,10 +188,10 @@ func (m *PingRequest) GetStCustomData() *_struct.Struct {
 }
 
 type PongReply struct {
-	Pong                 string          `protobuf:"bytes,1,opt,name=pong,proto3" json:"pong"`
-	StMetaData           *_struct.Struct `protobuf:"bytes,2,opt,name=st_meta_data,json=stMetaData,proto3" json:"st_meta_data"`
-	StCustomData         *_struct.Struct `protobuf:"bytes,3,opt,name=st_custom_data,json=stCustomData,proto3" json:"st_custom_data"`
-	AnyData              *any.Any        `protobuf:"bytes,4,opt,name=any_data,json=anyData,proto3" json:"any_data"`
+	Pong                 string          `protobuf:"bytes,1,opt,name=pong,proto3" json:"pong,omitempty"`
+	StMetaData           *_struct.Struct `protobuf:"bytes,2,opt,name=st_meta_data,json=stMetaData,proto3" json:"st_meta_data,omitempty"`
+	StCustomData         *_struct.Struct `protobuf:"bytes,3,opt,name=st_custom_data,json=stCustomData,proto3" json:"st_custom_data,omitempty"`
+	AnyData              *any.Any        `protobuf:"bytes,4,opt,name=any_data,json=anyData,proto3" json:"any_data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
@@ -251,14 +251,14 @@ func (m *PongReply) GetAnyData() *any.Any {
 }
 
 type UploadReq struct {
-	Content  []byte `protobuf:"bytes,1,opt,name=content,proto3" json:"content"`
-	FileName string `protobuf:"bytes,2,opt,name=file_name,json=fileName,proto3" json:"file_name"`
+	Content  []byte `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	FileName string `protobuf:"bytes,2,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
 	// 文件大小
-	FileSize int64  `protobuf:"varint,3,opt,name=file_size,json=fileSize,proto3" json:"file_size"`
-	MimeType string `protobuf:"bytes,4,opt,name=mime_type,json=mimeType,proto3" json:"mime_type"`
+	FileSize int64  `protobuf:"varint,3,opt,name=file_size,json=fileSize,proto3" json:"file_size,omitempty"`
+	MimeType string `protobuf:"bytes,4,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
 	// 上传完成
-	Finished             bool     `protobuf:"varint,5,opt,name=finished,proto3" json:"finished"`
-	SpId                 string   `protobuf:"bytes,6,opt,name=sp_id,json=spId,proto3" json:"sp_id"`
+	Finished             bool     `protobuf:"varint,5,opt,name=finished,proto3" json:"finished,omitempty"`
+	SpId                 string   `protobuf:"bytes,6,opt,name=sp_id,json=spId,proto3" json:"sp_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -333,7 +333,7 @@ func (m *UploadReq) GetSpId() string {
 
 type UploadResp struct {
 	// 文件id
-	FileId               string   `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id"`
+	FileId               string   `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`

@@ -22,7 +22,11 @@ func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *go
 	logger := zeusctx.ExtractLogger(ctx)
 	logger.Debug("PingPong")
 
-	helloSrv, _ := hellodemorpc.NewHelloDemoService(ctx)
+	helloSrv, err := hellodemorpc.NewHelloDemoService(ctx)
+	if err != nil {
+		logger.Error(err)
+		return
+	}
 	_, err = helloSrv.SayHello(ctx, &hellodemopb.HelloRequest{Age: 21})
 	if err != nil {
 		logger.Error(err)
