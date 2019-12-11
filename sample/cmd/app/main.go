@@ -44,8 +44,7 @@ func main() {
 		}
 	}
 	log.Printf("[GOMAXPROCS] %v\n", num)
-	curr := runtime.GOMAXPROCS(num)
-	log.Printf("[CURRENT GOMAXPROCS] %v\n", curr)
+	runtime.GOMAXPROCS(num)
 
 	loadEngineFnOpt := service.WithLoadEngineFnOption(func(ng engine.Engine) {
 		log.Println("WithLoadEngineFnOption: SetNG success.")
