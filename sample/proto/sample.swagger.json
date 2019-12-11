@@ -103,6 +103,21 @@
         },
         "st_custom_data": {
           "type": "object"
+        },
+        "double_value": {
+          "type": "number",
+          "format": "double"
+        },
+        "string_value": {
+          "type": "string"
+        },
+        "bool_value": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "int64_value": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },

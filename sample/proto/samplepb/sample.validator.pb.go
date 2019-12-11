@@ -7,11 +7,12 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "github.com/mwitkow/go-proto-validators"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	_ "github.com/golang/protobuf/ptypes/any"
 	_ "github.com/golang/protobuf/ptypes/struct"
-	_ "google.golang.org/genproto/googleapis/api/annotations"
-	_ "github.com/mwitkow/go-proto-validators"
+	_ "github.com/golang/protobuf/ptypes/wrappers"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -42,6 +43,26 @@ func (this *PingRequest) Validate() error {
 	if this.StCustomData != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StCustomData); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("StCustomData", err)
+		}
+	}
+	if this.DoubleValue != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.DoubleValue); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("DoubleValue", err)
+		}
+	}
+	if this.StringValue != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StringValue); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("StringValue", err)
+		}
+	}
+	if this.BoolValue != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.BoolValue); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("BoolValue", err)
+		}
+	}
+	if this.Int64Value != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Int64Value); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Int64Value", err)
 		}
 	}
 	return nil

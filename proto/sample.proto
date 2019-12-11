@@ -4,6 +4,7 @@ package sample;
 
 import "google/protobuf/any.proto";
 import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
 import "google/api/annotations.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "protoc-gen-swagger/options/annotations.proto";
@@ -48,10 +49,17 @@ message Reply{
 }
 
 message PingRequest{
+    reserved 4;
     string ping = 1;
     google.protobuf.Struct st_meta_data = 2;
     google.protobuf.Struct st_custom_data = 3;
+
     // google.protobuf.Any any_data = 4;
+
+    google.protobuf.DoubleValue double_value = 5;
+    google.protobuf.StringValue string_value = 6;
+    google.protobuf.BoolValue bool_value = 7;
+    google.protobuf.Int64Value int64_value = 8;
 }
 
 message PongReply{
