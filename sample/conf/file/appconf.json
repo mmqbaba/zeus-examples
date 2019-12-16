@@ -1,6 +1,6 @@
 {
     "go_micro": {
-        "service_name": "hello",
+        "service_name": "sample",
         "registry_plugin_type": "etcd",
         "registry_addrs": ["127.0.0.1:2379"]
     },
