@@ -85,6 +85,15 @@ message UploadResp {
     string file_id = 1;
 }
 
+message GetMsgReq {
+    // @inject_tag: form:"msg"
+    string msg = 1;
+    // @inject_tag: form:"count"
+    int32 count = 2;
+}
+
+message GetMsgResp {}
+
 service Sample{
     rpc SayHello(Request) returns (Reply){
         option (google.api.http) = {
@@ -101,4 +110,16 @@ service Sample{
     }
 
     rpc Upload(stream UploadReq) returns(UploadResp) {}
+
+    rpc GetMsg(GetMsgReq) returns(GetMsgResp) {
+        option (google.api.http) = {
+            get: "/v1/getmsg"
+            };
+    }
+
+    rpc DelMsg(GetMsgReq) returns(GetMsgResp) {
+        option (google.api.http) = {
+            delete: "/v1/delmsg"
+            };
+    }
 }

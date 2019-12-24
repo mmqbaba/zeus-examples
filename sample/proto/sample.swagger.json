@@ -15,6 +15,72 @@
     "application/json"
   ],
   "paths": {
+    "/v1/delmsg": {
+      "delete": {
+        "operationId": "DelMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sampleGetMsgResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "msg",
+            "description": "@inject_tag: form:\"msg\".",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "description": "@inject_tag: form:\"count\".",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Sample"
+        ]
+      }
+    },
+    "/v1/getmsg": {
+      "get": {
+        "operationId": "GetMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sampleGetMsgResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "msg",
+            "description": "@inject_tag: form:\"msg\".",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "description": "@inject_tag: form:\"count\".",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Sample"
+        ]
+      }
+    },
     "/v1/hello": {
       "post": {
         "operationId": "SayHello",
@@ -91,6 +157,9 @@
       ],
       "default": "NULL_VALUE",
       "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "sampleGetMsgResp": {
+      "type": "object"
     },
     "samplePingRequest": {
       "type": "object",

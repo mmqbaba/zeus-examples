@@ -43,6 +43,8 @@ type SampleService interface {
 	SayHello(ctx context.Context, in *Request, opts ...client.CallOption) (*Reply, error)
 	PingPong(ctx context.Context, in *PingRequest, opts ...client.CallOption) (*PongReply, error)
 	Upload(ctx context.Context, opts ...client.CallOption) (Sample_UploadService, error)
+	GetMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
+	DelMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
 }
 
 type sampleService struct {
@@ -119,12 +121,34 @@ func (x *sampleServiceUpload) Send(m *UploadReq) error {
 	return x.stream.Send(m)
 }
 
+func (c *sampleService) GetMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error) {
+	req := c.c.NewRequest(c.name, "Sample.GetMsg", in)
+	out := new(GetMsgResp)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sampleService) DelMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error) {
+	req := c.c.NewRequest(c.name, "Sample.DelMsg", in)
+	out := new(GetMsgResp)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Sample service
 
 type SampleHandler interface {
 	SayHello(context.Context, *Request, *Reply) error
 	PingPong(context.Context, *PingRequest, *PongReply) error
 	Upload(context.Context, Sample_UploadStream) error
+	GetMsg(context.Context, *GetMsgReq, *GetMsgResp) error
+	DelMsg(context.Context, *GetMsgReq, *GetMsgResp) error
 }
 
 func RegisterSampleHandler(s server.Server, hdlr SampleHandler, opts ...server.HandlerOption) error {
@@ -132,6 +156,8 @@ func RegisterSampleHandler(s server.Server, hdlr SampleHandler, opts ...server.H
 		SayHello(ctx context.Context, in *Request, out *Reply) error
 		PingPong(ctx context.Context, in *PingRequest, out *PongReply) error
 		Upload(ctx context.Context, stream server.Stream) error
+		GetMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
+		DelMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
 	}
 	type Sample struct {
 		sample
@@ -185,4 +211,12 @@ func (x *sampleUploadStream) Recv() (*UploadReq, error) {
 		return nil, err
 	}
 	return m, nil
+}
+
+func (h *sampleHandler) GetMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error {
+	return h.SampleHandler.GetMsg(ctx, in, out)
+}
+
+func (h *sampleHandler) DelMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error {
+	return h.SampleHandler.DelMsg(ctx, in, out)
 }

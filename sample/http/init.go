@@ -21,6 +21,8 @@ import (
 const (
 	Route_SampleHdlr_SayHello zeusmwhttp.RouteLink = "Route_SampleHdlr_SayHello"
 	Route_SampleHdlr_PingPong zeusmwhttp.RouteLink = "Route_SampleHdlr_PingPong"
+	Route_SampleHdlr_GetMsg zeusmwhttp.RouteLink = "Route_SampleHdlr_GetMsg"
+	Route_SampleHdlr_DelMsg zeusmwhttp.RouteLink = "Route_SampleHdlr_DelMsg"
 
 )
 
@@ -37,6 +39,18 @@ var sampleHdlrRoutes = map[zeusmwhttp.RouteLink]*zeusmwhttp.Route{
 		Method: http.MethodPost,
 		Path:   "/v1/pingpong",
 		Handle: zeusmwhttp.GenerateGinHandle(sampleHdlr.PingPong),
+	},
+	Route_SampleHdlr_GetMsg: &zeusmwhttp.Route{
+		RLink:  Route_SampleHdlr_GetMsg,
+		Method: http.MethodGet,
+		Path:   "/v1/getmsg",
+		Handle: zeusmwhttp.GenerateGinHandle(sampleHdlr.GetMsg),
+	},
+	Route_SampleHdlr_DelMsg: &zeusmwhttp.Route{
+		RLink:  Route_SampleHdlr_DelMsg,
+		Method: http.MethodDelete,
+		Path:   "/v1/delmsg",
+		Handle: zeusmwhttp.GenerateGinHandle(sampleHdlr.DelMsg),
 	},
 
 }

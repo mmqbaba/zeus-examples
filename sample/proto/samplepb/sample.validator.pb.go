@@ -7,12 +7,12 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
-	_ "google.golang.org/genproto/googleapis/api/annotations"
-	_ "github.com/mwitkow/go-proto-validators"
-	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	_ "github.com/golang/protobuf/ptypes/any"
 	_ "github.com/golang/protobuf/ptypes/struct"
 	_ "github.com/golang/protobuf/ptypes/wrappers"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "github.com/mwitkow/go-proto-validators"
+	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -89,5 +89,11 @@ func (this *UploadReq) Validate() error {
 	return nil
 }
 func (this *UploadResp) Validate() error {
+	return nil
+}
+func (this *GetMsgReq) Validate() error {
+	return nil
+}
+func (this *GetMsgResp) Validate() error {
 	return nil
 }

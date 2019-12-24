@@ -1,7 +1,7 @@
 {
     "go_micro": {
         "service_name": "sample",
-        "registry_plugin_type": "etcd",
+        "registry_plugin_type": "",
         "registry_addrs": ["127.0.0.1:2379"]
     },
     "mongodb": {
@@ -9,5 +9,8 @@
     },
     "redis": {
         "enable": false
+    },
+    "log_conf": {
+        "level": "debug"
     }
 }
