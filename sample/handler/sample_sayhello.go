@@ -15,6 +15,7 @@ import (
 func (h *Sample) SayHello(ctx context.Context, req *gomicro.Request, rsp *gomicro.Reply) (err error) {
 	logger := zeusctx.ExtractLogger(ctx)
 	logger.Debug("SayHello")
+	logger.Debug("===test wrap handler ctx===", ctx.Value("wrapctx"))
 
 	// info, err := user.GetInfo(ctx, "001")
 	// if err != nil {

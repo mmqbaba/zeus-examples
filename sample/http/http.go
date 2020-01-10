@@ -10,7 +10,6 @@ import (
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
 	// zeuserr "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
 	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
-
 	// "zeus-examples/errdef"
 )
 
@@ -55,6 +54,10 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 		Route_SampleHdlr_PingPong.AddMW(routes, zeusmwhttp.TagRawRsp(false))
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.UseGinBindValidateForPB(false))
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.DisablePBValidate(false))
+		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.WrapHandlerCtx(func(c *gin.Context, handlerCtx context.Context) context.Context {
+			ctx := context.WithValue(handlerCtx, "wrapctx", c.Request.URL.String())
+			return ctx
+		}))
 		// Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteErrFn(func(c *gin.Context, err error) {
 		// 	if err != nil {
 		// 		e, ok := err.(*zeuserr.Error)
