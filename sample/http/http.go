@@ -26,6 +26,7 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	// 这里可根据实际需求添加全局handlerfunc
 	g.NoRoute(zeusmwhttp.NotFound(ng))
 	g.Use(zeusmwhttp.Access(ng))
+	g.Use(zeusmwhttp.Recovery())
 
 	prefixGroup := g.Group(pathPrefix)
 	prefixGroup.GET("/ping", func(c *gin.Context) {
