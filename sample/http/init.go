@@ -26,7 +26,7 @@ const (
 
 )
 
-var sampleHdlr = &handler.Sample{}
+var sampleHdlr = handler.NewSample()
 var sampleHdlrRoutes = map[zeusmwhttp.RouteLink]*zeusmwhttp.Route{
 	Route_SampleHdlr_SayHello: &zeusmwhttp.Route{
 		RLink:  Route_SampleHdlr_SayHello,

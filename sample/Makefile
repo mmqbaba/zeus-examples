@@ -21,7 +21,7 @@ init:
 	sh build-proto.sh
 
 autoinit:
-	[ -f proto/samplepb/sample.micro.go ] || sh build-proto.sh
+	[ -f proto/samplepb/sample.micro.go ] || [ -f proto/samplepb/sample.pb.micro.go ] || sh build-proto.sh
 
 
 start:
@@ -37,4 +37,7 @@ docker: build docker-build
 
 docker-build:
 	docker build .
+
+error:
+	gen-zeus -onlyerr -errdef ../proto/errdef.proto -dest ../
 

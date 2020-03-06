@@ -10,15 +10,26 @@ import (
 )
 
 var ng engine.Engine
-var ServiceOpts []service.Option
+var ServiceOpts = []service.Option{
+	service.WithLoadEngineFnOption(func(ng engine.Engine) {
+		log.Println("WithLoadEngineFnOption: SetNG success.")
+		SetNG(ng)
+        loadEngineSuccess(ng)
+	}),
+}
 
 func init() {
 	// load engine
-	loadEngineFnOpt := service.WithLoadEngineFnOption(func(ng engine.Engine) {
-		log.Println("WithLoadEngineFnOption: SetNG success.")
-		SetNG(ng)
+	//loadEngineFnOpt := service.WithLoadEngineFnOption(func(ng engine.Engine) {
+	//	log.Println("WithLoadEngineFnOption: SetNG success.")
+	//	SetNG(ng)
+	//	loadEngineSuccess(ng)
+	//})
+	processChangeFnOpt := service.WithProcessChangeFnOption(func(event interface{}) {
+		processChange(event)
 	})
-	ServiceOpts = append(ServiceOpts, loadEngineFnOpt)
+	ServiceOpts = append(ServiceOpts, processChangeFnOpt)
+
 	// // server wrap
 	// ServiceOpts = append(ServiceOpts, service.WithGoMicroServerWrapGenerateFnOption(gomicro.GenerateServerLogWrap))
 }
@@ -43,3 +54,4 @@ func GetConfig() (conf *config.AppConf) {
 	conf = c.Get()
 	return
 }
+
