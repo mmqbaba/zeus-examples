@@ -29,6 +29,23 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	g.Use(zeusmwhttp.Recovery())
 
 	prefixGroup := g.Group(pathPrefix)
+
+	prefixGroup.Use(zeusmwhttp.WrapHandlerCtx(func(c *gin.Context, ctx context.Context) context.Context {
+		return context.WithValue(ctx, "a", "a1")
+	}))
+	prefixGroup.Use(zeusmwhttp.WrapHandlerCtx(func(c *gin.Context, ctx context.Context) context.Context {
+		return context.WithValue(ctx, "bb", "bb1")
+	}))
+	prefixGroup.Use(func(c *gin.Context) {
+		zeusmwhttp.AddWrapHandlerCtxFn(c, func(c *gin.Context, zctx context.Context) context.Context {
+			zeusmwhttp.ExtractLogger(c).Debug("test AddWrapHandlerCtxFn")
+			ctx := context.WithValue(zctx, "add-a", "add-a")
+			ctx = context.WithValue(ctx, "add-b", "add-b")
+			return ctx
+		})
+		c.Next()
+	})
+
 	prefixGroup.GET("/ping", func(c *gin.Context) {
 		zeusmwhttp.ExtractLogger(c).Debug("ping")
 		zeusmwhttp.SuccessResponse(c, gin.H{"message": "hello, zeus enginego."})
@@ -56,6 +73,11 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.UseGinBindValidateForPB(false))
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.DisablePBValidate(false))
 		Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.WrapHandlerCtx(func(c *gin.Context, handlerCtx context.Context) context.Context {
+			ctx := context.WithValue(handlerCtx, "wrapctx", c.Request.URL.String())
+			ctx = context.WithValue(ctx, "ginctx", c)
+			return ctx
+		}))
+		Route_SampleHdlr_DelMsg.AddMW(routes, zeusmwhttp.WrapHandlerCtx(func(c *gin.Context, handlerCtx context.Context) context.Context {
 			ctx := context.WithValue(handlerCtx, "wrapctx", c.Request.URL.String())
 			ctx = context.WithValue(ctx, "ginctx", c)
 			return ctx
