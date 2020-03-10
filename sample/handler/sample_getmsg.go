@@ -6,8 +6,6 @@ import (
 	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
 
 	gomicro "zeus-examples/sample/proto/samplepb"
-
-	zeushttpclient "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/httpclient"
 )
 
 func (h *Sample) GetMsg(ctx context.Context, req *gomicro.GetMsgReq, rsp *gomicro.GetMsgResp) (err error) {
@@ -26,17 +24,22 @@ func (h *Sample) GetMsg(ctx context.Context, req *gomicro.GetMsgReq, rsp *gomicr
 	}
 	logger.Debug(ret.Val())
 
-	hc, err := zeushttpclient.GetClient(ctx, "test")
+	hc, err := zeusctx.ExtractHttpClient(ctx)
 	if err != nil {
 		logger.Debug(err)
 		return
 	}
-	hcret, err := hc.Get(ctx, "/json/?lang=zh-CN", nil)
+	hcc, err := hc.GetHttpClient("test")
 	if err != nil {
 		logger.Debug(err)
 		return
 	}
-	logger.Debug(string(hcret))
+	hccret, err := hcc.Get(ctx, "/json/?lang=zh-CN", nil)
+	if err != nil {
+		logger.Debug(err)
+		return
+	}
+	logger.Debug(string(hccret))
 
 	return
 }
