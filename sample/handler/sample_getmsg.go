@@ -24,5 +24,22 @@ func (h *Sample) GetMsg(ctx context.Context, req *gomicro.GetMsgReq, rsp *gomicr
 	}
 	logger.Debug(ret.Val())
 
+	hc, err := zeusctx.ExtractHttpClient(ctx)
+	if err != nil {
+		logger.Debug(err)
+		return
+	}
+	hcc, err := hc.GetHttpClient("test")
+	if err != nil {
+		logger.Debug(err)
+		return
+	}
+	hccret, err := hcc.Get(ctx, "/json/?lang=zh-CN", nil)
+	if err != nil {
+		logger.Debug(err)
+		return
+	}
+	logger.Debug(string(hccret))
+
 	return
 }

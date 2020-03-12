@@ -7,8 +7,14 @@
     "mongodb": {
         "enable": false
     },
+    "http_client": {
+        "test": {
+            "instancename": "test",
+            "host_name": "http://ip-api.com"
+        }
+    },
     "redis": {
-        "host":"127.0.0.1:6379",
+        "host": "127.0.0.1:6379",
         "poolsize": 50,
         "conn_idle_timeout": 10,
         "enable": true
