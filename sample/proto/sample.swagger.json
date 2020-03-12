@@ -41,6 +41,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "create_time",
+            "description": "@inject_tag: form:\"create_time\" binding:\"required,datetime=2006-01-02 15:04:05\".",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -74,6 +81,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "create_time",
+            "description": "@inject_tag: form:\"create_time\" binding:\"required,datetime=2006-01-02 15:04:05\".",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -132,6 +146,32 @@
           "Sample"
         ]
       }
+    },
+    "/v1/sendmsg": {
+      "post": {
+        "operationId": "SendMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sampleGetMsgResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sampleGetMsgReq"
+            }
+          }
+        ],
+        "tags": [
+          "Sample"
+        ]
+      }
     }
   },
   "definitions": {
@@ -140,7 +180,7 @@
       "properties": {
         "type_url": {
           "type": "string",
-          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
         },
         "value": {
           "type": "string",
@@ -158,8 +198,35 @@
       "default": "NULL_VALUE",
       "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
     },
+    "sampleGetMsgReq": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "title": "@inject_tag: form:\"msg\""
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@inject_tag: form:\"count\""
+        },
+        "create_time": {
+          "type": "string",
+          "title": "@inject_tag: form:\"create_time\" binding:\"required,datetime=2006-01-02 15:04:05\""
+        }
+      }
+    },
     "sampleGetMsgResp": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     },
     "samplePingRequest": {
       "type": "object",
@@ -187,6 +254,10 @@
         "int64_value": {
           "type": "string",
           "format": "int64"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

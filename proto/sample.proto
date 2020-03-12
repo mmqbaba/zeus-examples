@@ -8,6 +8,7 @@ import "google/protobuf/wrappers.proto";
 import "google/api/annotations.proto";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
     // host: "localhost:8081",
@@ -60,6 +61,7 @@ message PingRequest{
     google.protobuf.StringValue string_value = 6;
     google.protobuf.BoolValue bool_value = 7;
     google.protobuf.Int64Value int64_value = 8;
+    google.protobuf.Timestamp time = 9;
 }
 
 message PongReply{
@@ -90,9 +92,14 @@ message GetMsgReq {
     string msg = 1;
     // @inject_tag: form:"count"
     int32 count = 2;
+    // @inject_tag: form:"create_time" binding:"required,datetime=2006-01-02 15:04:05"
+    string create_time = 4 [ (validator.field) = {string_not_empty: true, regex: "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"} ];
 }
 
-message GetMsgResp {}
+message GetMsgResp {
+    string msg = 1;
+    google.protobuf.Timestamp time = 2;
+}
 
 service Sample{
     rpc SayHello(Request) returns (Reply){
@@ -120,6 +127,13 @@ service Sample{
     rpc DelMsg(GetMsgReq) returns(GetMsgResp) {
         option (google.api.http) = {
             delete: "/v1/delmsg"
+            };
+    }
+
+    rpc SendMsg(GetMsgReq) returns(GetMsgResp) {
+        option (google.api.http) = {
+                post: "/v1/sendmsg"
+                body: "*"
             };
     }
 }

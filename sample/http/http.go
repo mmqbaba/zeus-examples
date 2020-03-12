@@ -16,6 +16,8 @@ import (
 func init() {
 	// zeusmwhttp.SuccessResponse = customSsuccessResponse // 可初始化设置为自定义
 	// zeusmwhttp.ErrorResponse = customErrorResponse
+
+	zeusmwhttp.SetDefaultValidator(nil)
 }
 
 func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) (http.Handler, error) {
@@ -60,6 +62,7 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 			ctx = context.WithValue(ctx, "ginctx", c)
 			return ctx
 		}))
+		Route_SampleHdlr_SendMsg.AddMW(routes, zeusmwhttp.UseGinBindValidateForPB(true))
 		// Route_SampleHdlr_SayHello.AddMW(routes, zeusmwhttp.SetReWriteErrFn(func(c *gin.Context, err error) {
 		// 	if err != nil {
 		// 		e, ok := err.(*zeuserr.Error)
