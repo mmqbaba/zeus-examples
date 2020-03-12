@@ -93,7 +93,7 @@ message GetMsgReq {
     // @inject_tag: form:"count"
     int32 count = 2;
     // @inject_tag: form:"create_time" binding:"required,datetime=2006-01-02 15:04:05"
-    string create_time = 4 [ (validator.field) = {string_not_empty: true, regex: "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"} ];
+    string create_time = 4 [ (validator.field) = {string_not_empty: true, regex: "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$"} ];
 }
 
 message GetMsgResp {

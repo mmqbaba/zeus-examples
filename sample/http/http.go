@@ -80,6 +80,7 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 			return ctx
 		}))
 		Route_SampleHdlr_SendMsg.AddMW(routes, zeusmwhttp.UseGinBindValidateForPB(true))
+		Route_SampleHdlr_GetMsg.AddMW(routes, zeusmwhttp.UseGinBindValidateForPB(true))
 		Route_SampleHdlr_DelMsg.AddMW(routes, zeusmwhttp.WrapHandlerCtx(func(c *gin.Context, handlerCtx context.Context) context.Context {
 			ctx := context.WithValue(handlerCtx, "wrapctx", c.Request.URL.String())
 			ctx = context.WithValue(ctx, "ginctx", c)
