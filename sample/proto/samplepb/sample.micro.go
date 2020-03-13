@@ -8,6 +8,7 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/golang/protobuf/ptypes/any"
 	_ "github.com/golang/protobuf/ptypes/struct"
+	_ "github.com/golang/protobuf/ptypes/timestamp"
 	_ "github.com/golang/protobuf/ptypes/wrappers"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	_ "github.com/mwitkow/go-proto-validators"
@@ -45,6 +46,7 @@ type SampleService interface {
 	Upload(ctx context.Context, opts ...client.CallOption) (Sample_UploadService, error)
 	GetMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
 	DelMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
+	SendMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
 }
 
 type sampleService struct {
@@ -141,6 +143,16 @@ func (c *sampleService) DelMsg(ctx context.Context, in *GetMsgReq, opts ...clien
 	return out, nil
 }
 
+func (c *sampleService) SendMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error) {
+	req := c.c.NewRequest(c.name, "Sample.SendMsg", in)
+	out := new(GetMsgResp)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Sample service
 
 type SampleHandler interface {
@@ -149,6 +161,7 @@ type SampleHandler interface {
 	Upload(context.Context, Sample_UploadStream) error
 	GetMsg(context.Context, *GetMsgReq, *GetMsgResp) error
 	DelMsg(context.Context, *GetMsgReq, *GetMsgResp) error
+	SendMsg(context.Context, *GetMsgReq, *GetMsgResp) error
 }
 
 func RegisterSampleHandler(s server.Server, hdlr SampleHandler, opts ...server.HandlerOption) error {
@@ -158,6 +171,7 @@ func RegisterSampleHandler(s server.Server, hdlr SampleHandler, opts ...server.H
 		Upload(ctx context.Context, stream server.Stream) error
 		GetMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
 		DelMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
+		SendMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
 	}
 	type Sample struct {
 		sample
@@ -219,4 +233,8 @@ func (h *sampleHandler) GetMsg(ctx context.Context, in *GetMsgReq, out *GetMsgRe
 
 func (h *sampleHandler) DelMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error {
 	return h.SampleHandler.DelMsg(ctx, in, out)
+}
+
+func (h *sampleHandler) SendMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error {
+	return h.SampleHandler.SendMsg(ctx, in, out)
 }
