@@ -7,7 +7,6 @@ import (
 	"runtime"
 	"strconv"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
 	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
 
@@ -46,16 +45,16 @@ func main() {
 	log.Printf("[GOMAXPROCS] %v\n", num)
 	runtime.GOMAXPROCS(num)
 
-	loadEngineFnOpt := service.WithLoadEngineFnOption(func(ng engine.Engine) {
-		log.Println("WithLoadEngineFnOption: SetNG success.")
-		global.SetNG(ng)
-	})
-	global.ServiceOpts = append(global.ServiceOpts, loadEngineFnOpt)
+	// loadEngineFnOpt := service.WithLoadEngineFnOption(func(ng engine.Engine) {
+	// 	log.Println("WithLoadEngineFnOption: SetNG success.")
+	// 	global.SetNG(ng)
+	// })
+	// global.ServiceOpts = append(global.ServiceOpts, loadEngineFnOpt)
 
-	initServiceFnOpt := service.WithInitServiceCompleteFnOption(func(ng engine.Engine) {
-		log.Println("WithInitServiceCompleteFnOption")
-	})
-	global.ServiceOpts = append(global.ServiceOpts, initServiceFnOpt)
+	// initServiceFnOpt := service.WithInitServiceCompleteFnOption(func(ng engine.Engine) {
+	// 	log.Println("WithInitServiceCompleteFnOption")
+	// })
+	// global.ServiceOpts = append(global.ServiceOpts, initServiceFnOpt)
 
 	log.Println("service run ...")
 	if err := service.Run(container.GetContainer(), nil, global.ServiceOpts...); err != nil {
