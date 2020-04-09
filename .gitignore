@@ -5,7 +5,6 @@
 *.log
 *.log.pos
 *.logger.Log
-go.sum
 ~$
 hellodemo_server
 
