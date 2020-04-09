@@ -20,7 +20,28 @@
         "enable": false
     },
     "log_conf": {
-        "level": "debug"
+        "log": "console",
+        "level": "debug",
+        "format": "text",
+        "disable_report_caller": false,
+        "rotation_time": "hour",
+        "log_dir": "./"
+    },
+    "accesslog": {
+        "conf": {
+            "log": "file",
+            "level": "info",
+            "format": "text",
+            "disable_report_caller": true,
+            "rotation_time": "hour",
+            "log_dir": "./accesslog"
+        },
+        "enable_recorded": true
+    },
+    "trace":{
+        "server_name":"sample",
+        "trace_url":"http://127.0.0.1:9411/api/v1/spans",
+        "only_log_err":false
     },
     "gops": {
         "enable": true,

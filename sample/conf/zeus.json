@@ -2,7 +2,7 @@
     "engine_type": "etcd",
     "config_path": "/zeus/zeus-examples/sample",
     "config_format": "json",
-	"endpoints": ["127.0.0.1:2379"],
+	"endpoints": ["172.16.0.60:12379"],
 	"username": "root",
 	"password": "123456"
 }
