@@ -25,16 +25,17 @@ func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *go
 	// 	"name": "mark",
 	// 	"age": 10,
 	// 	"meta_data": {
-	// 	  "email": "email",
-	// 	  "home_addr": "home_addr"
+	// 		"email": "email",
+	// 		"home_addr": "home_addr"
 	// 	},
-	// 	"sex_type": false
+	// 	"sex_type": true
 	// }
-	pbRequest := &gomicro.Request{}
+	var pbRequest proto.Message = &gomicro.Request{}
+	// var pbRequest proto.Message
 	ptypes.UnmarshalAny(req.AnyData, pbRequest)
 	logger.Debug(pbRequest)
-	logger.Debug(pbRequest.Name)
-	logger.Debug(pbRequest.MetaData)
+	// logger.Debug(pbRequest.Name)
+	// logger.Debug(pbRequest.MetaData)
 
 	// helloSrv, err := hellodemorpc.NewHelloDemoService(ctx)
 	// if err != nil {
