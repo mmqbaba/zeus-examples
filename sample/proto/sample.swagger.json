@@ -232,13 +232,17 @@
       "type": "object",
       "properties": {
         "ping": {
-          "type": "string"
+          "type": "string",
+          "title": "reserved 4;"
         },
         "st_meta_data": {
           "type": "object"
         },
         "st_custom_data": {
           "type": "object"
+        },
+        "any_data": {
+          "$ref": "#/definitions/protobufAny"
         },
         "double_value": {
           "type": "number",

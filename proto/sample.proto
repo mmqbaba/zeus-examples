@@ -50,12 +50,12 @@ message Reply{
 }
 
 message PingRequest{
-    reserved 4;
+    // reserved 4;
     string ping = 1;
     google.protobuf.Struct st_meta_data = 2;
     google.protobuf.Struct st_custom_data = 3;
 
-    // google.protobuf.Any any_data = 4;
+    google.protobuf.Any any_data = 4;
 
     google.protobuf.DoubleValue double_value = 5;
     google.protobuf.StringValue string_value = 6;

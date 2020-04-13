@@ -13,8 +13,6 @@ import (
 	zeusutilspb "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/utils/protobuf"
 
 	"zeus-examples/errdef"
-	hellodemopb "zeus-examples/hellodemo/proto/hellodemopb"
-	hellodemorpc "zeus-examples/hellodemo/resource/rpcclient"
 	gomicro "zeus-examples/sample/proto/samplepb"
 )
 
@@ -22,16 +20,32 @@ func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *go
 	logger := zeusctx.ExtractLogger(ctx)
 	logger.Debug("PingPong")
 
-	helloSrv, err := hellodemorpc.NewHelloDemoService(ctx)
-	if err != nil {
-		logger.Error(err)
-		return
-	}
-	_, err = helloSrv.SayHello(ctx, &hellodemopb.HelloRequest{Age: 21})
-	if err != nil {
-		logger.Error(err)
-		return
-	}
+	// "any_data": {
+	// 	"@type": "type.googleapis.com/sample.Request",
+	// 	"name": "mark",
+	// 	"age": 10,
+	// 	"meta_data": {
+	// 	  "email": "email",
+	// 	  "home_addr": "home_addr"
+	// 	},
+	// 	"sex_type": false
+	// }
+	pbRequest := &gomicro.Request{}
+	ptypes.UnmarshalAny(req.AnyData, pbRequest)
+	logger.Debug(pbRequest)
+	logger.Debug(pbRequest.Name)
+	logger.Debug(pbRequest.MetaData)
+
+	// helloSrv, err := hellodemorpc.NewHelloDemoService(ctx)
+	// if err != nil {
+	// 	logger.Error(err)
+	// 	return
+	// }
+	// _, err = helloSrv.SayHello(ctx, &hellodemopb.HelloRequest{Age: 21})
+	// if err != nil {
+	// 	logger.Error(err)
+	// 	return
+	// }
 
 	// 公共错误码
 	zeuserr.ECodeRedisErr.ParseErr("")

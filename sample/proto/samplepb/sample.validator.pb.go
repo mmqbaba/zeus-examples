@@ -47,6 +47,11 @@ func (this *PingRequest) Validate() error {
 			return github_com_mwitkow_go_proto_validators.FieldError("StCustomData", err)
 		}
 	}
+	if this.AnyData != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.AnyData); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("AnyData", err)
+		}
+	}
 	if this.DoubleValue != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.DoubleValue); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("DoubleValue", err)
