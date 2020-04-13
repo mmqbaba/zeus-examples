@@ -26,18 +26,15 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 
 	// TODO: 预留扩展
 	// 这里可根据实际需求添加全局handlerfunc
-	// g.NoRoute(zeusmwhttp.NotFound(ng))
-	g.Use(zeusmwhttp.Access(ng))
 	g.Use(zeusmwhttp.Recovery())
-
+	g.Use(zeusmwhttp.Access(ng))
+	// g.NoRoute(zeusmwhttp.NotFound(ng))
 	websiteroot := pathPrefix + "zeusweb"
 	g.NoRoute(NotFound(ng, websiteroot, websiteroot+"/static", websiteroot+"/sign.html"))
 	g.Static(websiteroot, "./website/")
 
 	prefixGroup := g.Group(pathPrefix)
-
 	// prefixGroup.Static("/zeusweb/", "./website/")
-
 	prefixGroup.Use(zeusmwhttp.WrapHandlerCtx(func(c *gin.Context, ctx context.Context) context.Context {
 		return context.WithValue(ctx, "a", "a1")
 	}))
