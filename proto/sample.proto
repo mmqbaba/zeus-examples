@@ -107,12 +107,18 @@ service Sample{
             post: "/v1/hello"
             body: "*"
             };
+            option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+                tags: "SayHello"
+            };
     }
 
     rpc PingPong(PingRequest) returns (PongReply){
         option (google.api.http) = {
             post: "/v1/pingpong"
             body: "*"
+            };
+            option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+                tags: "PingPong"
             };
     }
 
@@ -121,6 +127,9 @@ service Sample{
     rpc GetMsg(GetMsgReq) returns(GetMsgResp) {
         option (google.api.http) = {
             get: "/v1/getmsg"
+            };
+            option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+                tags: "GetMsgv"
             };
     }
 
