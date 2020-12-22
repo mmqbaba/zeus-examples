@@ -145,4 +145,11 @@ service Sample{
                 body: "*"
             };
     }
+
+    rpc TestStruct(GetMsgReq) returns(google.protobuf.Struct) {
+        option (google.api.http) = {
+            post: "/v1/teststruct"
+            body: "*"
+        };
+    }
 }

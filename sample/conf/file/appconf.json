@@ -10,7 +10,7 @@
     "http_client": {
         "test": {
             "instancename": "test",
-            "host_name": "http://ip-api.com"
+            "host_name": ["http://ip-api.com"]
         }
     },
     "redis": {

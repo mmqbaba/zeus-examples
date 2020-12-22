@@ -172,6 +172,32 @@
           "Sample"
         ]
       }
+    },
+    "/v1/teststruct": {
+      "post": {
+        "operationId": "TestStruct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sampleGetMsgReq"
+            }
+          }
+        ],
+        "tags": [
+          "Sample"
+        ]
+      }
     }
   },
   "definitions": {
