@@ -198,6 +198,32 @@
           "Sample"
         ]
       }
+    },
+    "/v1/teststructsample": {
+      "post": {
+        "operationId": "TestStructSample",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sampleStructSample"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sampleGetMsgReq"
+            }
+          }
+        ],
+        "tags": [
+          "Sample"
+        ]
+      }
     }
   },
   "definitions": {
@@ -336,6 +362,20 @@
         "sex_type": {
           "type": "boolean",
           "format": "boolean"
+        }
+      }
+    },
+    "sampleStructSample": {
+      "type": "object",
+      "properties": {
+        "resultType": {
+          "type": "string"
+        },
+        "result": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
         }
       }
     },

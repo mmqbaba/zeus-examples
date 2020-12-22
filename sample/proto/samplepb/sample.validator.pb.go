@@ -7,13 +7,13 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/golang/protobuf/ptypes/wrappers"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "github.com/mwitkow/go-proto-validators"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	_ "github.com/golang/protobuf/ptypes/timestamp"
 	_ "github.com/golang/protobuf/ptypes/any"
 	_ "github.com/golang/protobuf/ptypes/struct"
-	_ "github.com/golang/protobuf/ptypes/wrappers"
-	_ "google.golang.org/genproto/googleapis/api/annotations"
-	_ "github.com/mwitkow/go-proto-validators"
 	regexp "regexp"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
@@ -119,6 +119,16 @@ func (this *GetMsgResp) Validate() error {
 	if this.Time != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Time); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Time", err)
+		}
+	}
+	return nil
+}
+func (this *StructSample) Validate() error {
+	for _, item := range this.Result {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Result", err)
+			}
 		}
 	}
 	return nil

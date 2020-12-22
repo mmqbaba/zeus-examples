@@ -25,6 +25,7 @@ const (
 	Route_SampleHdlr_DelMsg zeusmwhttp.RouteLink = "Route_SampleHdlr_DelMsg"
 	Route_SampleHdlr_SendMsg zeusmwhttp.RouteLink = "Route_SampleHdlr_SendMsg"
 	Route_SampleHdlr_TestStruct zeusmwhttp.RouteLink = "Route_SampleHdlr_TestStruct"
+	Route_SampleHdlr_TestStructSample zeusmwhttp.RouteLink = "Route_SampleHdlr_TestStructSample"
 
 )
 
@@ -65,6 +66,12 @@ var sampleHdlrRoutes = map[zeusmwhttp.RouteLink]*zeusmwhttp.Route{
 		Method: http.MethodPost,
 		Path:   "/v1/teststruct",
 		Handle: zeusmwhttp.GenerateGinHandle(sampleHdlr.TestStruct),
+	},
+	Route_SampleHdlr_TestStructSample: &zeusmwhttp.Route{
+		RLink:  Route_SampleHdlr_TestStructSample,
+		Method: http.MethodPost,
+		Path:   "/v1/teststructsample",
+		Handle: zeusmwhttp.GenerateGinHandle(sampleHdlr.TestStructSample),
 	},
 
 }

@@ -7,7 +7,7 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/golang/protobuf/ptypes/any"
-	_ "github.com/golang/protobuf/ptypes/struct"
+	_struct "github.com/golang/protobuf/ptypes/struct"
 	_ "github.com/golang/protobuf/ptypes/timestamp"
 	_ "github.com/golang/protobuf/ptypes/wrappers"
 	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
@@ -47,6 +47,8 @@ type SampleService interface {
 	GetMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
 	DelMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
 	SendMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
+	TestStruct(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*_struct.Struct, error)
+	TestStructSample(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*StructSample, error)
 }
 
 type sampleService struct {
@@ -153,6 +155,26 @@ func (c *sampleService) SendMsg(ctx context.Context, in *GetMsgReq, opts ...clie
 	return out, nil
 }
 
+func (c *sampleService) TestStruct(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*_struct.Struct, error) {
+	req := c.c.NewRequest(c.name, "Sample.TestStruct", in)
+	out := new(_struct.Struct)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sampleService) TestStructSample(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*StructSample, error) {
+	req := c.c.NewRequest(c.name, "Sample.TestStructSample", in)
+	out := new(StructSample)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Sample service
 
 type SampleHandler interface {
@@ -162,6 +184,8 @@ type SampleHandler interface {
 	GetMsg(context.Context, *GetMsgReq, *GetMsgResp) error
 	DelMsg(context.Context, *GetMsgReq, *GetMsgResp) error
 	SendMsg(context.Context, *GetMsgReq, *GetMsgResp) error
+	TestStruct(context.Context, *GetMsgReq, *_struct.Struct) error
+	TestStructSample(context.Context, *GetMsgReq, *StructSample) error
 }
 
 func RegisterSampleHandler(s server.Server, hdlr SampleHandler, opts ...server.HandlerOption) error {
@@ -172,6 +196,8 @@ func RegisterSampleHandler(s server.Server, hdlr SampleHandler, opts ...server.H
 		GetMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
 		DelMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
 		SendMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error
+		TestStruct(ctx context.Context, in *GetMsgReq, out *_struct.Struct) error
+		TestStructSample(ctx context.Context, in *GetMsgReq, out *StructSample) error
 	}
 	type Sample struct {
 		sample
@@ -237,4 +263,12 @@ func (h *sampleHandler) DelMsg(ctx context.Context, in *GetMsgReq, out *GetMsgRe
 
 func (h *sampleHandler) SendMsg(ctx context.Context, in *GetMsgReq, out *GetMsgResp) error {
 	return h.SampleHandler.SendMsg(ctx, in, out)
+}
+
+func (h *sampleHandler) TestStruct(ctx context.Context, in *GetMsgReq, out *_struct.Struct) error {
+	return h.SampleHandler.TestStruct(ctx, in, out)
+}
+
+func (h *sampleHandler) TestStructSample(ctx context.Context, in *GetMsgReq, out *StructSample) error {
+	return h.SampleHandler.TestStructSample(ctx, in, out)
 }

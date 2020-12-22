@@ -101,6 +101,11 @@ message GetMsgResp {
     google.protobuf.Timestamp time = 2;
 }
 
+message StructSample {
+    string resultType = 1;
+    repeated google.protobuf.Struct result = 2;
+}
+
 service Sample{
     rpc SayHello(Request) returns (Reply){
         option (google.api.http) = {
@@ -149,6 +154,13 @@ service Sample{
     rpc TestStruct(GetMsgReq) returns(google.protobuf.Struct) {
         option (google.api.http) = {
             post: "/v1/teststruct"
+            body: "*"
+        };
+    }
+
+    rpc TestStructSample(GetMsgReq) returns(StructSample) {
+        option (google.api.http) = {
+            post: "/v1/teststructsample"
             body: "*"
         };
     }
