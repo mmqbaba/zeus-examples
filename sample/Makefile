@@ -16,6 +16,8 @@ ALL: build
 build: autoinit
 	go build $(ldflags) -o $(service)_server ./cmd/app
 
+build-vendor: autoinit
+	go build -mod=vendor $(ldflags) -o $(service)_server ./cmd/app
 
 init:
 	sh build-proto.sh
