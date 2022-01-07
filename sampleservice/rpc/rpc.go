@@ -11,7 +11,7 @@ import (
 	zgomicro "github.com/mmqbaba/zeus/microsrv/gomicro"
 	"github.com/mmqbaba/zeus/service"
 
-	"zeus-examples/sampleservice/global"
+	"github.com/mmqbaba/zeus-examples/sampleservice/global"
 )
 
 func init() {

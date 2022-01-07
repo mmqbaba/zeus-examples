@@ -14,11 +14,11 @@ import (
 	"github.com/mmqbaba/zeus/service"
 	"github.com/mmqbaba/zeus/utils"
 
-	_ "zeus-examples/hellodemo/http"
-	_ "zeus-examples/hellodemo/rpc"
+	_ "github.com/mmqbaba/zeus-examples/hellodemo/http"
+	_ "github.com/mmqbaba/zeus-examples/hellodemo/rpc"
 
-	"zeus-examples/hellodemo/global"
-	pb "zeus-examples/hellodemo/proto/hellodemopb"
+	"github.com/mmqbaba/zeus-examples/hellodemo/global"
+	pb "github.com/mmqbaba/zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 func TestMain(m *testing.M) {

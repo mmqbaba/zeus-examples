@@ -3,7 +3,8 @@ package handler
 import (
 	"context"
 	"testing"
-	gomicro "zeus-examples/sample/proto/samplepb"
+
+	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
 )
 
 func TestStructSample(t *testing.T) {

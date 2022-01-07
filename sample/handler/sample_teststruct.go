@@ -8,7 +8,7 @@ import (
 	zeusctx "github.com/mmqbaba/zeus/context"
 	zeusutilspb "github.com/mmqbaba/zeus/utils/protobuf"
 
-	gomicro "zeus-examples/sample/proto/samplepb"
+	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
 )
 
 func (h *Sample) TestStruct(ctx context.Context, req *gomicro.GetMsgReq, rsp *structpb.Struct) (err error) {

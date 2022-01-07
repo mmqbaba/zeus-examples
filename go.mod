@@ -1,4 +1,4 @@
-module zeus-examples
+module github.com/mmqbaba/zeus-examples
 
 go 1.16
 

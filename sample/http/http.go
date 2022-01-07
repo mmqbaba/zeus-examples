@@ -10,7 +10,7 @@ import (
 	"github.com/mmqbaba/zeus/engine"
 	// zeuserr "github.com/mmqbaba/zeus/errors"
 	zeusmwhttp "github.com/mmqbaba/zeus/middleware/http"
-	// "zeus-examples/errdef"
+	// "github.com/mmqbaba/zeus-examples/errdef"
 )
 
 func init() {

@@ -5,7 +5,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
+	gomicro "github.com/mmqbaba/zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 func (h *HelloDemo) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *gomicro.PongReply) (err error) {

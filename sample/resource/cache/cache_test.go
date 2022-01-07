@@ -6,7 +6,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	"zeus-examples/sample/global"
+	"github.com/mmqbaba/zeus-examples/sample/global"
 )
 
 func TestGetUser(t *testing.T) {

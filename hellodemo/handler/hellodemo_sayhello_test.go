@@ -3,7 +3,8 @@ package handler
 import (
 	"context"
 	"testing"
-	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
+
+	gomicro "github.com/mmqbaba/zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 func TestHelloDemo_SayHello(t *testing.T) {

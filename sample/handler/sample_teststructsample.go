@@ -5,7 +5,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	gomicro "zeus-examples/sample/proto/samplepb"
+	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
 
 	"github.com/golang/protobuf/jsonpb"
 )

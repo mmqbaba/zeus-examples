@@ -8,7 +8,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	"zeus-examples/sampleservice/proto/hello"
+	"github.com/mmqbaba/zeus-examples/sampleservice/proto/hello"
 )
 
 type HelloService struct {

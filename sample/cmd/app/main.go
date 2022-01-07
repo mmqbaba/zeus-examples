@@ -10,8 +10,8 @@ import (
 	"github.com/mmqbaba/zeus/plugin/container"
 	"github.com/mmqbaba/zeus/service"
 
-	"zeus-examples/sample/global"
-	_ "zeus-examples/sample/proto"
+	"github.com/mmqbaba/zeus-examples/sample/global"
+	_ "github.com/mmqbaba/zeus-examples/sample/proto"
 )
 
 var (

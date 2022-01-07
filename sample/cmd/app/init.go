@@ -2,7 +2,6 @@
 package main
 
 import (
-	_ "zeus-examples/sample/http"
-	_ "zeus-examples/sample/rpc"
+	_ "github.com/mmqbaba/zeus-examples/sample/http"
+	_ "github.com/mmqbaba/zeus-examples/sample/rpc"
 )
-

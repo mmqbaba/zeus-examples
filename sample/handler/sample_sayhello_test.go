@@ -6,8 +6,8 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	"zeus-examples/sample/global"
-	gomicro "zeus-examples/sample/proto/samplepb"
+	"github.com/mmqbaba/zeus-examples/sample/global"
+	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
 )
 
 func TestSample_SayHello(t *testing.T) {
