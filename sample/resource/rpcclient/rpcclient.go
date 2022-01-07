@@ -1,11 +1,12 @@
 package rpcclient
+
 import (
 	"context"
 	"sync"
 
 	"github.com/micro/go-micro/client"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeusctx "github.com/mmqbaba/zeus/context"
 
 	gomicro "zeus-examples/sample/proto/samplepb"
 )
@@ -15,7 +16,7 @@ var sampleSrv SampleService
 type SampleService struct {
 	gomicro.SampleService
 	once sync.Once
-	name   string
+	name string
 }
 
 func NewSampleService(ctx context.Context) (gomicro.SampleService, error) {
@@ -34,4 +35,3 @@ func NewSampleService(ctx context.Context) (gomicro.SampleService, error) {
 	}
 	return &sampleSrv, nil
 }
-

@@ -6,7 +6,7 @@ import (
 
 	"github.com/micro/go-micro/server"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+	"github.com/mmqbaba/zeus/service"
 
 	"zeus-examples/sample/global"
 	"zeus-examples/sample/handler"
@@ -26,4 +26,3 @@ func gmSampleHandlerRegister(s server.Server, opts ...server.HandlerOption) (err
 	}
 	return
 }
-

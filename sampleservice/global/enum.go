@@ -3,12 +3,12 @@ package global
 import (
 	"net/http"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
+	"github.com/mmqbaba/zeus/errors"
 )
 
 // 每个子项目特有的错误码定义，避免使用 0 ~ 19999，与公共库冲突
 const (
-	ECodeSampleServiceOK errors.ErrorCode = 20000
+	ECodeSampleServiceOK  errors.ErrorCode = 20000
 	ECodeSampleServiceErr errors.ErrorCode = 20001
 )
 

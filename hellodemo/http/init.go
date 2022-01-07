@@ -10,8 +10,8 @@ import (
 	gruntime "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 
-	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+	zeusmwhttp "github.com/mmqbaba/zeus/middleware/http"
+	"github.com/mmqbaba/zeus/service"
 
 	"zeus-examples/hellodemo/global"
 	"zeus-examples/hellodemo/handler"
@@ -20,11 +20,10 @@ import (
 
 const (
 	Route_HelloDemoHdlr_SayHello zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_SayHello"
-	Route_HelloDemoHdlr_Get zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_Get"
-	Route_HelloDemoHdlr_Put zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_Put"
-	Route_HelloDemoHdlr_Delete zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_Delete"
+	Route_HelloDemoHdlr_Get      zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_Get"
+	Route_HelloDemoHdlr_Put      zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_Put"
+	Route_HelloDemoHdlr_Delete   zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_Delete"
 	Route_HelloDemoHdlr_PingPong zeusmwhttp.RouteLink = "Route_HelloDemoHdlr_PingPong"
-
 )
 
 var hellodemoHdlr = &handler.HelloDemo{}
@@ -59,7 +58,6 @@ var hellodemoHdlrRoutes = map[zeusmwhttp.RouteLink]*zeusmwhttp.Route{
 		Path:   "/v1/pingpong",
 		Handle: zeusmwhttp.GenerateGinHandle(hellodemoHdlr.PingPong),
 	},
-
 }
 
 func init() {

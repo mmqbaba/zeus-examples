@@ -8,9 +8,9 @@ import (
 	any "github.com/golang/protobuf/ptypes/any"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
-	zeuserr "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
-	zeusutilspb "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/utils/protobuf"
+	zeusctx "github.com/mmqbaba/zeus/context"
+	zeuserr "github.com/mmqbaba/zeus/errors"
+	zeusutilspb "github.com/mmqbaba/zeus/utils/protobuf"
 
 	"zeus-examples/errdef"
 	gomicro "zeus-examples/sample/proto/samplepb"

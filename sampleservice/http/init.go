@@ -11,8 +11,8 @@ import (
 	gruntime "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 
-	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+	zeusmwhttp "github.com/mmqbaba/zeus/middleware/http"
+	"github.com/mmqbaba/zeus/service"
 
 	"zeus-examples/sampleservice/global"
 	"zeus-examples/sampleservice/handler"

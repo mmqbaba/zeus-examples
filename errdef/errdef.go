@@ -2,7 +2,7 @@
 package errdef
 
 import (
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
+	"github.com/mmqbaba/zeus/errors"
 	"net/http"
 )
 

@@ -3,7 +3,7 @@ package handler
 import (
 	"context"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeusctx "github.com/mmqbaba/zeus/context"
 
 	gomicro "zeus-examples/sample/proto/samplepb"
 

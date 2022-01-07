@@ -7,9 +7,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
-	// zeuserr "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
-	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
+	"github.com/mmqbaba/zeus/engine"
+	// zeuserr "github.com/mmqbaba/zeus/errors"
+	zeusmwhttp "github.com/mmqbaba/zeus/middleware/http"
 	// "zeus-examples/errdef"
 )
 

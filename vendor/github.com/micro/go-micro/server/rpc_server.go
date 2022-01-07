@@ -63,6 +63,7 @@ func newRpcServer(opts ...Option) Server {
 func (s *rpcServer) HandleEvent(e broker.Event) error {
 	// formatting horrible cruft
 	msg := e.Message()
+
 	if msg.Header == nil {
 		// create empty map in case of headers empty to avoid panic later
 		msg.Header = make(map[string]string)
@@ -110,7 +111,6 @@ func (s *rpcServer) HandleEvent(e broker.Event) error {
 
 	// if the router is present then execute it
 	if s.opts.Router != nil {
-
 		// create a wrapped function
 		handler := s.opts.Router.ProcessMessage
 

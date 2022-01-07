@@ -7,8 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
-	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
+	"github.com/mmqbaba/zeus/engine"
+	zeusmwhttp "github.com/mmqbaba/zeus/middleware/http"
 )
 
 func init() {
@@ -40,8 +40,8 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 		c.Next()
 	})
 	groups := map[string]*gin.RouterGroup{
-		"default": prefixGroup,
-		"hellodemo":   hellodemoGroup,
+		"default":   prefixGroup,
+		"hellodemo": hellodemoGroup,
 	}
 	////
 
@@ -61,4 +61,3 @@ func serveHTTPHandler(ctx context.Context, pathPrefix string, ng engine.Engine) 
 	registerRoutesForHelloDemoHandler(groups, customRouteHelloDemoHdlr)
 	return g, nil
 }
-

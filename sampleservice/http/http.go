@@ -7,8 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
-	zeusmwhttp "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/middleware/http"
+	"github.com/mmqbaba/zeus/engine"
+	zeusmwhttp "github.com/mmqbaba/zeus/middleware/http"
 )
 
 func init() {

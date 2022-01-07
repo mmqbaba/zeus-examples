@@ -6,7 +6,7 @@ import (
 
 	"github.com/micro/go-micro/client"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeusctx "github.com/mmqbaba/zeus/context"
 
 	"zeus-examples/sampleservice/proto/hello"
 )

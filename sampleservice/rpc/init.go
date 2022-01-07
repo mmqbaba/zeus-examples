@@ -7,7 +7,7 @@ import (
 
 	"github.com/micro/go-micro/server"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+	"github.com/mmqbaba/zeus/service"
 
 	"zeus-examples/sampleservice/global"
 	"zeus-examples/sampleservice/handler"

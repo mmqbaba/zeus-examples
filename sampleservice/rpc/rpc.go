@@ -6,10 +6,10 @@ import (
 	"github.com/micro/go-micro/server"
 	"github.com/sirupsen/logrus"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/engine"
-	zgomicro "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/microsrv/gomicro"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+	zeusctx "github.com/mmqbaba/zeus/context"
+	"github.com/mmqbaba/zeus/engine"
+	zgomicro "github.com/mmqbaba/zeus/microsrv/gomicro"
+	"github.com/mmqbaba/zeus/service"
 
 	"zeus-examples/sampleservice/global"
 )

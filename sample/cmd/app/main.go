@@ -7,10 +7,11 @@ import (
 	"runtime"
 	"strconv"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+	"github.com/mmqbaba/zeus/plugin/container"
+	"github.com/mmqbaba/zeus/service"
 
 	"zeus-examples/sample/global"
+	_ "zeus-examples/sample/proto"
 )
 
 var (

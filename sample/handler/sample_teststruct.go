@@ -5,8 +5,8 @@ import (
 
 	structpb "github.com/golang/protobuf/ptypes/struct"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
-	zeusutilspb "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/utils/protobuf"
+	zeusctx "github.com/mmqbaba/zeus/context"
+	zeusutilspb "github.com/mmqbaba/zeus/utils/protobuf"
 
 	gomicro "zeus-examples/sample/proto/samplepb"
 )

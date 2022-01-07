@@ -6,7 +6,7 @@ import (
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/registry"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeusctx "github.com/mmqbaba/zeus/context"
 
 	sample "zeus-examples/sample/proto/samplepb"
 	"zeus-examples/sample/resource/cache"

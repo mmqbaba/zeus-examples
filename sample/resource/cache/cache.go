@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-redis/redis"
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeusctx "github.com/mmqbaba/zeus/context"
 )
 
 func GetUser(ctx context.Context, id string) (info string, err error) {

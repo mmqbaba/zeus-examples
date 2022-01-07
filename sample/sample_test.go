@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/utils"
+	"github.com/mmqbaba/zeus/errors"
+	"github.com/mmqbaba/zeus/plugin/container"
+	"github.com/mmqbaba/zeus/service"
+	"github.com/mmqbaba/zeus/utils"
 
 	_ "zeus-examples/sample/http"
 	_ "zeus-examples/sample/rpc"

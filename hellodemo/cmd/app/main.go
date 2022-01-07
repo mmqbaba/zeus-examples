@@ -7,8 +7,8 @@ import (
 	"runtime"
 	"strconv"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
+	"github.com/mmqbaba/zeus/plugin/container"
+	"github.com/mmqbaba/zeus/service"
 
 	"zeus-examples/hellodemo/global"
 )

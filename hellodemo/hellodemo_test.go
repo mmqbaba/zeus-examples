@@ -1,7 +1,7 @@
 package hellodemo
 
 import (
-    "bytes"
+	"bytes"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -9,16 +9,16 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/errors"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/plugin/container"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/service"
-	"gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/utils"
+	"github.com/mmqbaba/zeus/errors"
+	"github.com/mmqbaba/zeus/plugin/container"
+	"github.com/mmqbaba/zeus/service"
+	"github.com/mmqbaba/zeus/utils"
 
 	_ "zeus-examples/hellodemo/http"
 	_ "zeus-examples/hellodemo/rpc"
 
 	"zeus-examples/hellodemo/global"
-    pb "zeus-examples/hellodemo/proto/hellodemopb"
+	pb "zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 func TestMain(m *testing.M) {
@@ -80,20 +80,20 @@ func checkRsp(t *testing.T, expected, actual interface{}) {
 
 func TestHTTP(t *testing.T) {
 	// 路径带前缀'/api'
-    runHelloDemoSayHello(t, http.MethodPost, "/api/v1/hello")
-    runHelloDemoGet(t, http.MethodGet, "/api/v1/hello")
-    runHelloDemoPut(t, http.MethodPut, "/api/v1/hello")
-    runHelloDemoDelete(t, http.MethodDelete, "/api/v1/hello")
-    runHelloDemoPingPong(t, http.MethodPost, "/api/v1/pingpong")
+	runHelloDemoSayHello(t, http.MethodPost, "/api/v1/hello")
+	runHelloDemoGet(t, http.MethodGet, "/api/v1/hello")
+	runHelloDemoPut(t, http.MethodPut, "/api/v1/hello")
+	runHelloDemoDelete(t, http.MethodDelete, "/api/v1/hello")
+	runHelloDemoPingPong(t, http.MethodPost, "/api/v1/pingpong")
 
 }
 func TestGoMicroGrpcGateway(t *testing.T) {
 	// 路径不带前缀'/api'
-    runHelloDemoSayHello(t, http.MethodPost, "/v1/hello")
-    runHelloDemoGet(t, http.MethodGet, "/v1/hello")
-    runHelloDemoPut(t, http.MethodPut, "/v1/hello")
-    runHelloDemoDelete(t, http.MethodDelete, "/v1/hello")
-    runHelloDemoPingPong(t, http.MethodPost, "/v1/pingpong")
+	runHelloDemoSayHello(t, http.MethodPost, "/v1/hello")
+	runHelloDemoGet(t, http.MethodGet, "/v1/hello")
+	runHelloDemoPut(t, http.MethodPut, "/v1/hello")
+	runHelloDemoDelete(t, http.MethodDelete, "/v1/hello")
+	runHelloDemoPingPong(t, http.MethodPost, "/v1/pingpong")
 
 }
 
@@ -286,5 +286,3 @@ func runHelloDemoPingPong(t *testing.T, method, url string) {
 		}
 	})
 }
-
-

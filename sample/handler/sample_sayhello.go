@@ -6,7 +6,7 @@ import (
 	"github.com/go-redis/redis"
 	"go.mongodb.org/mongo-driver/bson"
 
-	zeusctx "gitlab.dg.com/BackEnd/jichuchanpin/tif/zeus/context"
+	zeusctx "github.com/mmqbaba/zeus/context"
 
 	// "zeus-examples/sample/logic/user"
 	gomicro "zeus-examples/sample/proto/samplepb"
