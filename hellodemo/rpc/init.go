@@ -8,9 +8,9 @@ import (
 
 	"github.com/mmqbaba/zeus/service"
 
-	"github.com/mmqbaba/zeus-examples/hellodemo/global"
-	"github.com/mmqbaba/zeus-examples/hellodemo/handler"
-	gomicro "github.com/mmqbaba/zeus-examples/hellodemo/proto/hellodemopb"
+	"zeus-examples/hellodemo/global"
+	"zeus-examples/hellodemo/handler"
+	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 func init() {

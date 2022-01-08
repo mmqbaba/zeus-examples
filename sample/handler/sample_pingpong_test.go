@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
+	gomicro "zeus-examples/sample/proto/samplepb"
 
 	any "github.com/golang/protobuf/ptypes/any"
 	structpb "github.com/golang/protobuf/ptypes/struct"

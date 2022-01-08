@@ -8,7 +8,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	gomicro "github.com/mmqbaba/zeus-examples/hellodemo/proto/hellodemopb"
+	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 var hellodemoSrv HelloDemoService

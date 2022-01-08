@@ -13,9 +13,9 @@ import (
 	zeusmwhttp "github.com/mmqbaba/zeus/middleware/http"
 	"github.com/mmqbaba/zeus/service"
 
-	"github.com/mmqbaba/zeus-examples/sample/global"
-	"github.com/mmqbaba/zeus-examples/sample/handler"
-	gw "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
+	"zeus-examples/sample/global"
+	"zeus-examples/sample/handler"
+	gw "zeus-examples/sample/proto/samplepb"
 )
 
 const (

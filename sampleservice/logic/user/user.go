@@ -8,9 +8,9 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	"github.com/mmqbaba/zeus-examples/sampleservice/proto/hello"
-	"github.com/mmqbaba/zeus-examples/sampleservice/resource/cache"
-	rpc "github.com/mmqbaba/zeus-examples/sampleservice/resource/rpcclient"
+	"zeus-examples/sampleservice/proto/hello"
+	"zeus-examples/sampleservice/resource/cache"
+	rpc "zeus-examples/sampleservice/resource/rpcclient"
 )
 
 func GetInfo(ctx context.Context, id string) (info string, err error) {

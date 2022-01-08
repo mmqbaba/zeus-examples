@@ -6,7 +6,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	"github.com/mmqbaba/zeus-examples/sampleservice/proto/hello"
+	"zeus-examples/sampleservice/proto/hello"
 )
 
 func (h *Hello) Upload(ctx context.Context, stream hello.Hello_UploadStream) error {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	gomicro "github.com/mmqbaba/zeus-examples/hellodemo/proto/hellodemopb"
+	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 func TestHelloDemo_SayHello(t *testing.T) {

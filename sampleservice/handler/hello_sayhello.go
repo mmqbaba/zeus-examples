@@ -5,8 +5,8 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	"github.com/mmqbaba/zeus-examples/sampleservice/logic/user"
-	"github.com/mmqbaba/zeus-examples/sampleservice/proto/hello"
+	"zeus-examples/sampleservice/logic/user"
+	"zeus-examples/sampleservice/proto/hello"
 )
 
 func (h *Hello) SayHello(ctx context.Context, req *hello.HelloRequest, rsp *hello.HelloReply) (err error) {

@@ -3,6 +3,6 @@
 package main
 
 import (
-	_ "github.com/mmqbaba/zeus-examples/sampleservice/http"
-	_ "github.com/mmqbaba/zeus-examples/sampleservice/rpc"
+	_ "zeus-examples/sampleservice/http"
+	_ "zeus-examples/sampleservice/rpc"
 )

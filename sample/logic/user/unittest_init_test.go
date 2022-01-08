@@ -9,7 +9,7 @@ import (
 	"github.com/mmqbaba/zeus/plugin/container"
 	"github.com/mmqbaba/zeus/service"
 
-	"github.com/mmqbaba/zeus-examples/sample/global"
+	"zeus-examples/sample/global"
 )
 
 func TestMain(m *testing.M) {

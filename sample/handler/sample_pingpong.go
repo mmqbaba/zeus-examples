@@ -12,8 +12,8 @@ import (
 	zeuserr "github.com/mmqbaba/zeus/errors"
 	zeusutilspb "github.com/mmqbaba/zeus/utils/protobuf"
 
-	"github.com/mmqbaba/zeus-examples/errdef"
-	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
+	"zeus-examples/errdef"
+	gomicro "zeus-examples/sample/proto/samplepb"
 )
 
 func (h *Sample) PingPong(ctx context.Context, req *gomicro.PingRequest, rsp *gomicro.PongReply) (err error) {
@@ -80,7 +80,7 @@ func toAny() (*any.Any, error) {
 	// 	MetaData: map[string]string{"email": "email", "home_addr": "home_addr"},
 	// }
 	// data := new(any.Any)
-	// data.TypeUrl = "gitlab.digitalgd.com.cn/github.com/mmqbaba/zeus-examples/" + proto.MessageName(pb)
+	// data.TypeUrl = "gitlab.digitalgd.com.cn/zeus-examples/" + proto.MessageName(pb)
 	// data.Value, _ = proto.Marshal(pb)
 	// rsp.Data = data
 }

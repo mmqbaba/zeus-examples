@@ -5,7 +5,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	gomicro "github.com/mmqbaba/zeus-examples/hellodemo/proto/hellodemopb"
+	gomicro "zeus-examples/hellodemo/proto/hellodemopb"
 )
 
 func (h *HelloDemo) Delete(ctx context.Context, req *gomicro.HelloRequest, rsp *gomicro.HelloReply) (err error) {

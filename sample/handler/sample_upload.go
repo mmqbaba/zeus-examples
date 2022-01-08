@@ -5,7 +5,7 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
+	gomicro "zeus-examples/sample/proto/samplepb"
 )
 
 func (h *Sample) Upload(ctx context.Context, stream gomicro.Sample_UploadStream) (err error) {

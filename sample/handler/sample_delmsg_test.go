@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
+	gomicro "zeus-examples/sample/proto/samplepb"
 )
 
 func TestSample_DelMsg(t *testing.T) {

@@ -8,8 +8,8 @@ import (
 
 	zeusctx "github.com/mmqbaba/zeus/context"
 
-	// "github.com/mmqbaba/zeus-examples/sample/logic/user"
-	gomicro "github.com/mmqbaba/zeus-examples/sample/proto/samplepb"
+	// "zeus-examples/sample/logic/user"
+	gomicro "zeus-examples/sample/proto/samplepb"
 )
 
 func (h *Sample) SayHello(ctx context.Context, req *gomicro.Request, rsp *gomicro.Reply) (err error) {
