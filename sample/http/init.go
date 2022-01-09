@@ -19,13 +19,14 @@ import (
 )
 
 const (
-	Route_SampleHdlr_SayHello         zeusmwhttp.RouteLink = "Route_SampleHdlr_SayHello"
-	Route_SampleHdlr_PingPong         zeusmwhttp.RouteLink = "Route_SampleHdlr_PingPong"
-	Route_SampleHdlr_GetMsg           zeusmwhttp.RouteLink = "Route_SampleHdlr_GetMsg"
-	Route_SampleHdlr_DelMsg           zeusmwhttp.RouteLink = "Route_SampleHdlr_DelMsg"
-	Route_SampleHdlr_SendMsg          zeusmwhttp.RouteLink = "Route_SampleHdlr_SendMsg"
-	Route_SampleHdlr_TestStruct       zeusmwhttp.RouteLink = "Route_SampleHdlr_TestStruct"
+	Route_SampleHdlr_SayHello zeusmwhttp.RouteLink = "Route_SampleHdlr_SayHello"
+	Route_SampleHdlr_PingPong zeusmwhttp.RouteLink = "Route_SampleHdlr_PingPong"
+	Route_SampleHdlr_GetMsg zeusmwhttp.RouteLink = "Route_SampleHdlr_GetMsg"
+	Route_SampleHdlr_DelMsg zeusmwhttp.RouteLink = "Route_SampleHdlr_DelMsg"
+	Route_SampleHdlr_SendMsg zeusmwhttp.RouteLink = "Route_SampleHdlr_SendMsg"
+	Route_SampleHdlr_TestStruct zeusmwhttp.RouteLink = "Route_SampleHdlr_TestStruct"
 	Route_SampleHdlr_TestStructSample zeusmwhttp.RouteLink = "Route_SampleHdlr_TestStructSample"
+
 )
 
 var sampleHdlr = handler.NewSample()
@@ -72,6 +73,7 @@ var sampleHdlrRoutes = map[zeusmwhttp.RouteLink]*zeusmwhttp.Route{
 		Path:   "/v1/teststructsample",
 		Handle: zeusmwhttp.GenerateGinHandle(sampleHdlr.TestStructSample),
 	},
+
 }
 
 func init() {
