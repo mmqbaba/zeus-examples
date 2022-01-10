@@ -80,7 +80,7 @@ func toAny() (*any.Any, error) {
 	// 	MetaData: map[string]string{"email": "email", "home_addr": "home_addr"},
 	// }
 	// data := new(any.Any)
-	// data.TypeUrl = "gitlab.digitalgd.com.cn/zeus-examples/" + proto.MessageName(pb)
+	// data.TypeUrl = "github.com/mmqbaba/zeus-examples/" + proto.MessageName(pb)
 	// data.Value, _ = proto.Marshal(pb)
 	// rsp.Data = data
 }
