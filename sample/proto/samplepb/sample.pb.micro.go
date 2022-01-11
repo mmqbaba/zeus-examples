@@ -41,11 +41,16 @@ var _ server.Option
 // Client API for Sample service
 
 type SampleService interface {
+	// 打招呼
 	SayHello(ctx context.Context, in *Request, opts ...client.CallOption) (*Reply, error)
+	// pingpong
 	PingPong(ctx context.Context, in *PingRequest, opts ...client.CallOption) (*PongReply, error)
 	Upload(ctx context.Context, opts ...client.CallOption) (Sample_UploadService, error)
+	// 获取信息
 	GetMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
+	// 删除信息
 	DelMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
+	// 发送信息
 	SendMsg(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*GetMsgResp, error)
 	TestStruct(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*_struct.Struct, error)
 	TestStructSample(ctx context.Context, in *GetMsgReq, opts ...client.CallOption) (*StructSample, error)
@@ -178,11 +183,16 @@ func (c *sampleService) TestStructSample(ctx context.Context, in *GetMsgReq, opt
 // Server API for Sample service
 
 type SampleHandler interface {
+	// 打招呼
 	SayHello(context.Context, *Request, *Reply) error
+	// pingpong
 	PingPong(context.Context, *PingRequest, *PongReply) error
 	Upload(context.Context, Sample_UploadStream) error
+	// 获取信息
 	GetMsg(context.Context, *GetMsgReq, *GetMsgResp) error
+	// 删除信息
 	DelMsg(context.Context, *GetMsgReq, *GetMsgResp) error
+	// 发送信息
 	SendMsg(context.Context, *GetMsgReq, *GetMsgResp) error
 	TestStruct(context.Context, *GetMsgReq, *_struct.Struct) error
 	TestStructSample(context.Context, *GetMsgReq, *StructSample) error

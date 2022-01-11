@@ -17,6 +17,7 @@
   "paths": {
     "/v1/delmsg": {
       "delete": {
+        "summary": "删除信息",
         "operationId": "DelMsg",
         "responses": {
           "200": {
@@ -57,6 +58,7 @@
     },
     "/v1/getmsg": {
       "get": {
+        "summary": "获取信息",
         "operationId": "GetMsg",
         "responses": {
           "200": {
@@ -97,6 +99,7 @@
     },
     "/v1/hello": {
       "post": {
+        "summary": "打招呼",
         "operationId": "SayHello",
         "responses": {
           "200": {
@@ -123,6 +126,7 @@
     },
     "/v1/pingpong": {
       "post": {
+        "summary": "pingpong",
         "operationId": "PingPong",
         "responses": {
           "200": {
@@ -149,6 +153,7 @@
     },
     "/v1/sendmsg": {
       "post": {
+        "summary": "发送信息",
         "operationId": "SendMsg",
         "responses": {
           "200": {

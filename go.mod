@@ -6,8 +6,7 @@ replace (
 	github.com/golang/lint => golang.org/x/lint v0.0.0-20190313153728-d0100b6bd8b3
 	github.com/hashicorp/consul => github.com/hashicorp/consul v1.5.1
 	github.com/micro/go-micro => github.com/maidol/go-micro v1.18.1
-	// github.com/mmqbaba/zeus => github.com/mmqbaba/zeus.git v0.0.2
-	github.com/mmqbaba/zeus => ../zeus
+	github.com/mmqbaba/zeus => github.com/mmqbaba/zeus v0.6.10
 	github.com/testcontainers/testcontainer-go => github.com/testcontainers/testcontainers-go v0.0.4
 )
 

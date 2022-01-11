@@ -672,11 +672,16 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SampleClient interface {
+	// 打招呼
 	SayHello(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Reply, error)
+	// pingpong
 	PingPong(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PongReply, error)
 	Upload(ctx context.Context, opts ...grpc.CallOption) (Sample_UploadClient, error)
+	// 获取信息
 	GetMsg(ctx context.Context, in *GetMsgReq, opts ...grpc.CallOption) (*GetMsgResp, error)
+	// 删除信息
 	DelMsg(ctx context.Context, in *GetMsgReq, opts ...grpc.CallOption) (*GetMsgResp, error)
+	// 发送信息
 	SendMsg(ctx context.Context, in *GetMsgReq, opts ...grpc.CallOption) (*GetMsgResp, error)
 	TestStruct(ctx context.Context, in *GetMsgReq, opts ...grpc.CallOption) (*_struct.Struct, error)
 	TestStructSample(ctx context.Context, in *GetMsgReq, opts ...grpc.CallOption) (*StructSample, error)
@@ -789,11 +794,16 @@ func (c *sampleClient) TestStructSample(ctx context.Context, in *GetMsgReq, opts
 
 // SampleServer is the server API for Sample service.
 type SampleServer interface {
+	// 打招呼
 	SayHello(context.Context, *Request) (*Reply, error)
+	// pingpong
 	PingPong(context.Context, *PingRequest) (*PongReply, error)
 	Upload(Sample_UploadServer) error
+	// 获取信息
 	GetMsg(context.Context, *GetMsgReq) (*GetMsgResp, error)
+	// 删除信息
 	DelMsg(context.Context, *GetMsgReq) (*GetMsgResp, error)
+	// 发送信息
 	SendMsg(context.Context, *GetMsgReq) (*GetMsgResp, error)
 	TestStruct(context.Context, *GetMsgReq) (*_struct.Struct, error)
 	TestStructSample(context.Context, *GetMsgReq) (*StructSample, error)

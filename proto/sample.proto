@@ -107,6 +107,7 @@ message StructSample {
 }
 
 service Sample{
+    // 打招呼
     rpc SayHello(Request) returns (Reply){
         option (google.api.http) = {
             post: "/v1/hello"
@@ -117,6 +118,7 @@ service Sample{
             };
     }
 
+    // pingpong
     rpc PingPong(PingRequest) returns (PongReply){
         option (google.api.http) = {
             post: "/v1/pingpong"
@@ -129,6 +131,7 @@ service Sample{
 
     rpc Upload(stream UploadReq) returns(UploadResp) {}
 
+    // 获取信息
     rpc GetMsg(GetMsgReq) returns(GetMsgResp) {
         option (google.api.http) = {
             get: "/v1/getmsg"
@@ -138,12 +141,14 @@ service Sample{
             };
     }
 
+    // 删除信息
     rpc DelMsg(GetMsgReq) returns(GetMsgResp) {
         option (google.api.http) = {
             delete: "/v1/delmsg"
             };
     }
 
+    // 发送信息
     rpc SendMsg(GetMsgReq) returns(GetMsgResp) {
         option (google.api.http) = {
                 post: "/v1/sendmsg"

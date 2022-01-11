@@ -41,17 +41,17 @@ fi
 protoc-go-inject-tag -input=./${service}pb/$service.pb.go # inject tag
 
 if [ "$(uname)" == "Darwin" ]; then
-    # Mac OS X 操作系统
-    sed -i '' -e 's/RegisterExampleHandler(/RegisterExampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
-    sed -i '' -e 's/ RegisterExampleHandler / RegisterExampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
+    # Mac OS X
+    sed -i '' -e 's/RegisterSampleHandler(/RegisterSampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
+    sed -i '' -e 's/ RegisterSampleHandler / RegisterSampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    # GNU/Linux操作系统
-    sed -i 's/RegisterExampleHandler(/RegisterExampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
-    sed -i 's/ RegisterExampleHandler / RegisterExampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
+    # GNU/Linux
+    sed -i 's/RegisterSampleHandler(/RegisterSampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
+    sed -i 's/ RegisterSampleHandler / RegisterSampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
 elif [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
-    # Windows NT操作系统
-    sed -i 's/RegisterExampleHandler(/RegisterExampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
-    sed -i 's/ RegisterExampleHandler / RegisterExampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
+    # Windows NT
+    sed -i 's/RegisterSampleHandler(/RegisterSampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
+    sed -i 's/ RegisterSampleHandler / RegisterSampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
 fi
 
 # gen-gomicro gen-grpc-gateway gen-validator swagger
