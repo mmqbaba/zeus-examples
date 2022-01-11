@@ -44,12 +44,12 @@ if [ "$(uname)" == "Darwin" ]; then
     # Mac OS X
     sed -i '' -e 's/RegisterSampleHandler(/RegisterSampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
     sed -i '' -e 's/ RegisterSampleHandler / RegisterSampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [ "$(uname -s)" == "Linux" ]; then
     # GNU/Linux
     sed -i 's/RegisterSampleHandler(/RegisterSampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
     sed -i 's/ RegisterSampleHandler / RegisterSampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
-elif [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
-    # Windows NT
+elif [ "$(uname -o)" == "Msys" ]; then
+    # Windows
     sed -i 's/RegisterSampleHandler(/RegisterSampleHandlerGW(/g' ./${service}pb/$service.pb.gw.go
     sed -i 's/ RegisterSampleHandler / RegisterSampleHandlerGW /g' ./${service}pb/$service.pb.gw.go
 fi
