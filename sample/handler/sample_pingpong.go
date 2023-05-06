@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"fmt"
 
 	proto "github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
@@ -121,9 +122,13 @@ func toStruct() *structpb.Struct {
 			&ss{AbcVal: "abcval", SsData: pingReq, SsOk: true, MySs: &ss{AbcVal: "abcval", SsData: pingReq, SsOk: true, MySs: &ss{}}},
 		},
 	}
+	// r := zeusutilspb.ToStruct()(val)
+	r, errS := zeusutilspb.ObjToStruct(val)
+	if errS != nil {
+		fmt.Println(errS)
+	}
 
-	return zeusutilspb.ToStruct(val)
-
+	return r
 	// stval := &st.Struct{
 	// 	Fields: map[string]*st.Value{
 	// 		"email": &st.Value{Kind: &st.Value_StringValue{StringValue: "email"}},

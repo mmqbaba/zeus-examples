@@ -8,6 +8,50 @@ import (
 	structpb "github.com/golang/protobuf/ptypes/struct"
 )
 
+// ObjToStruct objtype: map/struct
+func ObjToStruct(i interface{}) (*structpb.Struct, error) {
+	v := reflect.ValueOf(i)
+
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+
+	if v.Kind() == reflect.Struct {
+		fields := make(map[string]*structpb.Value)
+		typ := v.Type()
+
+		for i := 0; i < v.NumField(); i++ {
+			field := typ.Field(i)
+			if field.PkgPath != "" { // Skip unexported fields
+				continue
+			}
+			val := ToValue(v.Field(i).Interface())
+			if val == nil {
+				val = &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
+			}
+			fields[field.Name] = val
+		}
+		return &structpb.Struct{Fields: fields}, nil
+	}
+
+	if v.Kind() == reflect.Map {
+		fields := make(map[string]*structpb.Value)
+		iter := v.MapRange()
+
+		for iter.Next() {
+			key := iter.Key().String()
+			val := ToValue(iter.Value().Interface())
+			if val == nil {
+				val = &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
+			}
+			fields[key] = val
+		}
+		return &structpb.Struct{Fields: fields}, nil
+	}
+
+	return nil, fmt.Errorf("unsupported type: %T, it was not map or struct", i)
+}
+
 // ToStruct converts a map[string]interface{} to a ptypes.Struct
 func ToStruct(v map[string]interface{}) *structpb.Struct {
 	size := len(v)
@@ -16,7 +60,11 @@ func ToStruct(v map[string]interface{}) *structpb.Struct {
 	}
 	fields := make(map[string]*structpb.Value, size)
 	for k, v := range v {
-		fields[k] = ToValue(v)
+		val := ToValue(v)
+		if val == nil {
+			val = &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
+		}
+		fields[k] = val
 	}
 	return &structpb.Struct{
 		Fields: fields,
@@ -27,7 +75,8 @@ func ToStruct(v map[string]interface{}) *structpb.Struct {
 func ToValue(v interface{}) *structpb.Value {
 	switch v := v.(type) {
 	case nil:
-		return nil
+		// return nil
+		return &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
 	case bool:
 		return &structpb.Value{
 			Kind: &structpb.Value_BoolValue{
@@ -140,13 +189,15 @@ func toValue(v reflect.Value) *structpb.Value {
 		}
 	case reflect.Ptr:
 		if v.IsNil() {
-			return nil
+			// return nil
+			return &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
 		}
 		return toValue(reflect.Indirect(v))
 	case reflect.Array, reflect.Slice:
 		size := v.Len()
 		if size == 0 {
-			return nil
+			// return nil
+			return &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
 		}
 		values := make([]*structpb.Value, size)
 		for i := 0; i < size; i++ {
@@ -163,7 +214,8 @@ func toValue(v reflect.Value) *structpb.Value {
 		t := v.Type()
 		size := v.NumField()
 		if size == 0 {
-			return nil
+			// return nil
+			return &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
 		}
 		fields := make(map[string]*structpb.Value, size)
 		for i := 0; i < size; i++ {
@@ -178,7 +230,8 @@ func toValue(v reflect.Value) *structpb.Value {
 			}
 		}
 		if len(fields) == 0 {
-			return nil
+			// return nil
+			return &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
 		}
 		return &structpb.Value{
 			Kind: &structpb.Value_StructValue{
@@ -190,7 +243,8 @@ func toValue(v reflect.Value) *structpb.Value {
 	case reflect.Map:
 		keys := v.MapKeys()
 		if len(keys) == 0 {
-			return nil
+			// return nil
+			return &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
 		}
 		fields := make(map[string]*structpb.Value, len(keys))
 		for _, k := range keys {
@@ -199,7 +253,8 @@ func toValue(v reflect.Value) *structpb.Value {
 			}
 		}
 		if len(fields) == 0 {
-			return nil
+			// return nil
+			return &structpb.Value{Kind: &structpb.Value_NullValue{NullValue: 0}}
 		}
 		return &structpb.Value{
 			Kind: &structpb.Value_StructValue{
