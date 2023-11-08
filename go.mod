@@ -8,6 +8,7 @@ replace (
 	github.com/micro/go-micro => github.com/maidol/go-micro v1.18.1
 	github.com/mmqbaba/zeus => github.com/mmqbaba/zeus v0.6.12
 	github.com/testcontainers/testcontainer-go => github.com/testcontainers/testcontainers-go v0.0.4
+    google.golang.org/grpc => google.golang.org/grpc v1.25.1
 )
 
 require (
